@@ -101,14 +101,14 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
   const primaryHeroWord = heroWords.slice(0, 2).join(" ") || t.form.title;
   const secondaryHeroWord = heroWords.slice(2).join(" ") || "Elite Training Club";
   const quickStats = [
-    { icon: <Activity className="h-7 w-7" />, value: "24/7", label: "Smart access", desc: "Ra vào không giới hạn" },
-    { icon: <Dumbbell className="h-7 w-7" />, value: "1:1", label: "Personal coach", desc: "Huấn luyện cá nhân" },
-    { icon: <Star className="h-7 w-7" />, value: "15 min", label: "Quick intake", desc: "Tư vấn nhanh chóng" },
+    { icon: <Activity className="h-7 w-7" />, value: "24/7", label: t.form.quickStats.access.label, desc: t.form.quickStats.access.desc },
+    { icon: <Dumbbell className="h-7 w-7" />, value: "1:1", label: t.form.quickStats.coach.label, desc: t.form.quickStats.coach.desc },
+    { icon: <Star className="h-7 w-7" />, value: "15 min", label: t.form.quickStats.intake.label, desc: t.form.quickStats.intake.desc },
   ];
   const formBadges = [
-    { icon: <LockKeyhole className="h-5 w-5" />, label: "Bảo mật thông tin" },
-    { icon: <Headphones className="h-5 w-5" />, label: "Tư vấn miễn phí" },
-    { icon: <ShieldCheck className="h-5 w-5" />, label: "Không cam kết ràng buộc" },
+    { icon: <LockKeyhole className="h-5 w-5" />, label: t.form.formBadges.security },
+    { icon: <Headphones className="h-5 w-5" />, label: t.form.formBadges.consultation },
+    { icon: <ShieldCheck className="h-5 w-5" />, label: t.form.formBadges.commitment },
   ];
 
   return (
@@ -134,7 +134,7 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
             id="join-kicker"
           >
             <span className="h-px w-12 bg-[#ff2f1f]" />
-            <span>Membership access</span>
+            <span>{t.form.kicker}</span>
           </motion.div>
 
           <motion.h2
@@ -158,7 +158,7 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.08 }}
           >
-            Trải nghiệm không gian tập luyện đẳng cấp, huấn luyện cá nhân hóa và hệ sinh thái phục hồi chuẩn private club.
+            {t.form.desc}
           </motion.p>
 
           <motion.div
@@ -215,7 +215,7 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
             transition={{ duration: 0.75, delay: 0.22 }}
           >
             <span className="font-display text-4xl font-black not-italic leading-none text-[#ff2f1f]">“</span>
-            <span>Không chỉ là nơi tập luyện, đây là nơi bạn trở thành phiên bản tốt nhất của chính mình.</span>
+            <span>{t.form.quote}</span>
             <span className="font-display text-4xl font-black not-italic leading-none text-[#ff2f1f]">”</span>
           </motion.p>
         </div>
@@ -243,7 +243,7 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
                         <ShieldCheck className="h-8 w-8" />
                       </div>
                     </div>
-                    <p className="max-w-sm text-base font-light leading-relaxed text-[#f4efe7]/82">Nhận lịch tư vấn miễn phí cùng coach trong hôm nay.</p>
+                    <p className="max-w-sm text-base font-light leading-relaxed text-[#f4efe7]/82">{t.form.sub}</p>
                   </div>
 
                   <div className="relative z-10 mt-6 flex flex-1 flex-col gap-4">
@@ -305,7 +305,7 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
                         <Target className="absolute left-5 top-5 h-5 w-5 text-[#f4efe7]/70" />
                         <textarea
                           rows={3}
-                          placeholder="Mục tiêu tập luyện của bạn"
+                          placeholder={t.form.placeholderGoals}
                           value={formData.goals}
                           onChange={(e) => setFormData({ ...formData, goals: e.target.value })}
                           className="w-full resize-none rounded-xl border border-[#f4efe7]/24 bg-[#0b0a09]/76 px-14 py-4 text-base font-light text-[#f4efe7] outline-none transition-all duration-300 placeholder:text-[#bcb5aa]/58 focus:border-[#ff2f1f]/80 focus:bg-[#120f0d]/88 focus:shadow-[0_0_0_4px_rgba(255,47,31,0.14)]"
@@ -332,12 +332,12 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
                       className="group flex w-full cursor-pointer items-center justify-center gap-4 rounded-xl bg-[#ff2f1f] px-6 py-5 text-center text-base font-black uppercase leading-none text-[#f4efe7] shadow-[0_20px_58px_rgba(255,47,31,0.28)] transition-all duration-300 hover:bg-[#f4efe7] hover:text-[#050505] active:scale-[0.98] md:text-lg"
                       id="form-submit-btn"
                     >
-                      <span>Giữ suất trải nghiệm</span>
+                      <span>{t.form.btnSubmit}</span>
                       <ArrowRight className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1" />
                     </button>
 
                     <p className="flex items-center justify-center gap-1 text-center text-sm font-light text-[#c9c0b4]">
-                      Số lượng suất trải nghiệm <span className="font-black text-[#ff2f1f]">có hạn</span> mỗi ngày!
+                      {t.form.note}
                     </p>
                   </div>
                 </form>

@@ -32,7 +32,7 @@ export default function Passes({ onSelectPass }: PassesProps) {
       title: "Essential",
       image: "/hero/no-limits-exterior.png",
       features: [t.passes.plans.essential.f1, t.passes.plans.essential.f2, t.passes.plans.essential.f3],
-      price: "1.490.000đ",
+      price: t.passes.prices.essential,
       period: t.passes.period,
     },
     {
@@ -41,7 +41,7 @@ export default function Passes({ onSelectPass }: PassesProps) {
       title: "Premium",
       image: "/hero/no-limits-gym-floor.png",
       features: [t.passes.plans.premium.f1, t.passes.plans.premium.f2, t.passes.plans.premium.f3],
-      price: "2.990.000đ",
+      price: t.passes.prices.premium,
       period: t.passes.period,
     },
     {
@@ -50,7 +50,7 @@ export default function Passes({ onSelectPass }: PassesProps) {
       title: "Elite PT",
       image: "/hero/no-limits-reception.png",
       features: [t.passes.plans.elite.f1, t.passes.plans.elite.f2, t.passes.plans.elite.f3],
-      price: "5.990.000đ",
+      price: t.passes.prices.elite,
       period: t.passes.period,
     },
   ];

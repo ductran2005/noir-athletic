@@ -13,45 +13,7 @@ export default function Footer() {
     { name: "Youtube", href: "#", icon: Youtube },
   ];
 
-  // Footer translations helper
-  const footerT = {
-    vi: {
-      locationTitle: "Địa điểm CLB",
-      address: "01 Đường 2 Tháng 9, Hải Châu, Đà Nẵng, Việt Nam",
-      contactTitle: "Liên hệ tuyển sinh",
-      hoursTitle: "Thời gian hoạt động",
-      hoursBody: "Mở cửa 24/7 cho Hội viên chính thức",
-      officeHours: "Văn phòng tuyển sinh: 08:00 - 22:00 hằng ngày",
-      navTitle: "Khám phá",
-      legalTitle: "Pháp lý & Bảo mật",
-      terms: "Điều khoản",
-      privacy: "Bảo mật",
-      cookie: "Cookies",
-      newsletterTitle: "Nhận thông tin tuyển sinh",
-      newsletterSub: "Cập nhật các chương trình ưu đãi và sự kiện đặc quyền.",
-      newsletterPlaceholder: "Địa chỉ email của bạn",
-      newsletterBtn: "Đăng ký",
-    },
-    en: {
-      locationTitle: "Club Location",
-      address: "01 September 2 Rd, Hai Chau, Da Nang, Vietnam",
-      contactTitle: "Contact Us",
-      hoursTitle: "Operating Hours",
-      hoursBody: "Open 24/7 for Registered Members",
-      officeHours: "Admissions Office: 08:00 - 22:00 Daily",
-      navTitle: "Navigation",
-      legalTitle: "Legal & Privacy",
-      terms: "Terms",
-      privacy: "Privacy",
-      cookie: "Cookies",
-      newsletterTitle: "Admissions newsletter",
-      newsletterSub: "Get updates on exclusive programs and privilege events.",
-      newsletterPlaceholder: "Your email address",
-      newsletterBtn: "Subscribe",
-    },
-  };
-
-  const f = language === "vi" ? footerT.vi : footerT.en;
+  const f = t.footer;
 
   return (
     <footer
@@ -86,7 +48,7 @@ export default function Footer() {
             {/* Est. 2026 flagship indicator matching requested reference layout */}
             <div className="flex items-center gap-2 text-[10px] uppercase tracking-[2.5px] text-[#bcb5aa] font-bold font-display" id="footer-flagship-indicator">
               <MapPin className="w-3.5 h-3.5 text-[#b43b2f]" />
-              <span>ĐÀ NẴNG FLAGSHIP</span>
+              <span>{f.flagship}</span>
               <span className="text-[#9e978f]/40 select-none">•</span>
               <span>EST. 2026</span>
             </div>
@@ -128,20 +90,20 @@ export default function Footer() {
           {/* Column 3: Exclusive Commitments ("CAM KẾT ĐỘC QUYỀN" in high-fidelity list structure) */}
           <div className="lg:col-span-3 flex flex-col gap-3 md:gap-4" id="footer-commitments">
             <span className="text-[10px] md:text-xs uppercase tracking-[2px] text-[#bcb5aa]/70 font-bold font-display border-b border-[#f4efe7]/5 pb-1.5">
-              {language === "vi" ? "CAM KẾT ĐỘC QUYỀN" : "EXCLUSIVE PRESTIGE"}
+              {f.exclusiveTitle}
             </span>
             <div className="flex flex-col gap-2.5 text-xs md:text-sm font-medium text-[#f4efe7]/95" id="footer-features-list">
               <div className="flex gap-2 items-center">
                 <Clock className="w-3.5 h-3.5 text-[#b43b2f] shrink-0" />
-                <span>{language === "vi" ? "Quyền truy cập không giới hạn 24/7" : "Unlimited 24/7 club access"}</span>
+                <span>{f.exclusiveF1}</span>
               </div>
               <div className="flex gap-2 items-center">
                 <span className="w-3.5 h-3.5 flex items-center justify-center font-bold text-[#b43b2f] text-[10px] border border-[#b43b2f]/40 rounded-full shrink-0">★</span>
-                <span>{language === "vi" ? "Huấn luyện viên kèm cặp 1:1 chuyên biệt" : "Dedicated 1:1 elite coaching"}</span>
+                <span>{f.exclusiveF2}</span>
               </div>
               <div className="flex gap-2 items-center">
                 <span className="w-3.5 h-3.5 flex items-center justify-center font-bold text-[#b43b2f] text-[9.5px] border border-[#b43b2f]/40 rounded-full shrink-0">✓</span>
-                <span>{language === "vi" ? "Hội viên tinh tuyển giới hạn 150" : "Curated club cap of 150"}</span>
+                <span>{f.exclusiveF3}</span>
               </div>
             </div>
           </div>

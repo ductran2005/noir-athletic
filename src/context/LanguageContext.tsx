@@ -16,6 +16,7 @@ interface TranslationDictionary {
   hero: {
     tagline: string;
     sub: string;
+    highlights: string[];
     liveFeed: string;
     location: string;
     slides: {
@@ -46,6 +47,11 @@ interface TranslationDictionary {
     title: string;
     period: string;
     cta: string;
+    prices: {
+      essential: string;
+      premium: string;
+      elite: string;
+    };
     plans: {
       essential: {
         f1: string;
@@ -95,6 +101,9 @@ interface TranslationDictionary {
     title: string;
     header: string;
     sub: string;
+    desc: string;
+    quote: string;
+    note: string;
     labelName: string;
     placeholderName: string;
     labelPhone: string;
@@ -117,6 +126,38 @@ interface TranslationDictionary {
     errorPhoneEmpty: string;
     errorPhoneInvalid: string;
     privileges: Array<{ num: string; title: string; desc: string }>;
+    quickStats: {
+      access: { label: string; desc: string };
+      coach: { label: string; desc: string };
+      intake: { label: string; desc: string };
+    };
+    formBadges: {
+      security: string;
+      consultation: string;
+      commitment: string;
+    };
+  };
+  footer: {
+    locationTitle: string;
+    address: string;
+    contactTitle: string;
+    hoursTitle: string;
+    hoursBody: string;
+    officeHours: string;
+    navTitle: string;
+    legalTitle: string;
+    terms: string;
+    privacy: string;
+    cookie: string;
+    newsletterTitle: string;
+    newsletterSub: string;
+    newsletterPlaceholder: string;
+    newsletterBtn: string;
+    flagship: string;
+    exclusiveTitle: string;
+    exclusiveF1: string;
+    exclusiveF2: string;
+    exclusiveF3: string;
   };
 }
 
@@ -132,6 +173,11 @@ const viTranslations: TranslationDictionary = {
   hero: {
     tagline: "NO LIMITS",
     sub: "Nghi thức rèn luyện cao cấp dành cho người kỷ luật.",
+    highlights: [
+      "Thiết bị Eleiko & Hammer Strength",
+      "Phục hồi cold plunge & xông hơi",
+      "Giới hạn 150 hội viên tinh tuyển",
+    ],
     liveFeed: "Bản Tin Trực Tiếp // Khám Phá CLB",
     location: "Đà Nẵng, VN",
     slides: {
@@ -178,6 +224,11 @@ const viTranslations: TranslationDictionary = {
     title: "Chọn cấp độ sống của bạn.",
     period: "/ tháng",
     cta: "Đăng ký",
+    prices: {
+      essential: "1.490.000đ",
+      premium: "2.990.000đ",
+      elite: "5.990.000đ",
+    },
     plans: {
       essential: {
         f1: "Truy cập khu tập chính",
@@ -226,7 +277,10 @@ const viTranslations: TranslationDictionary = {
     kicker: "Đăng Ký Thành Viên",
     title: "Gia Nhập CLB",
     header: "Đăng ký trải nghiệm",
-    sub: "Hãy điền thông tin để chúng tôi chuẩn bị đặc quyền cho bạn.",
+    sub: "Nhận lịch tư vấn miễn phí cùng coach trong hôm nay.",
+    desc: "Trải nghiệm không gian tập luyện đẳng cấp, huấn luyện cá nhân hóa và hệ sinh thái phục hồi chuẩn private club.",
+    quote: "Không chỉ là nơi tập luyện, đây là nơi bạn trở thành phiên bản tốt nhất của chính mình.",
+    note: "Số lượng suất trải nghiệm có hạn mỗi ngày!",
     labelName: "Họ và tên",
     placeholderName: "Nguyễn Văn A",
     labelPhone: "Số điện thoại",
@@ -269,7 +323,39 @@ const viTranslations: TranslationDictionary = {
         title: "ĐÀO TẠO & DINH DƯỠNG 1:1",
         desc: "Thiết kế giáo án tập luyện và chế độ ăn uống chuyên biệt cùng Huấn luyện viên."
       }
-    ]
+    ],
+    quickStats: {
+      access: { label: "Smart access", desc: "Ra vào không giới hạn" },
+      coach: { label: "Personal coach", desc: "Huấn luyện cá nhân" },
+      intake: { label: "Quick intake", desc: "Tư vấn nhanh chóng" },
+    },
+    formBadges: {
+      security: "Bảo mật thông tin",
+      consultation: "Tư vấn miễn phí",
+      commitment: "Không cam kết ràng buộc",
+    },
+  },
+  footer: {
+    locationTitle: "Địa điểm CLB",
+    address: "01 Đường 2 Tháng 9, Hải Châu, Đà Nẵng, Việt Nam",
+    contactTitle: "Liên hệ tuyển sinh",
+    hoursTitle: "Thời gian hoạt động",
+    hoursBody: "Mở cửa 24/7 cho Hội viên chính thức",
+    officeHours: "Văn phòng tuyển sinh: 08:00 - 22:00 hằng ngày",
+    navTitle: "Khám phá",
+    legalTitle: "Pháp lý & Bảo mật",
+    terms: "Điều khoản",
+    privacy: "Bảo mật",
+    cookie: "Cookies",
+    newsletterTitle: "Nhận thông tin tuyển sinh",
+    newsletterSub: "Cập nhật các chương trình ưu đãi và sự kiện đặc quyền.",
+    newsletterPlaceholder: "Địa chỉ email của bạn",
+    newsletterBtn: "Đăng ký",
+    flagship: "ĐÀ NẴNG FLAGSHIP",
+    exclusiveTitle: "CAM KẾT ĐỘC QUYỀN",
+    exclusiveF1: "Quyền truy cập không giới hạn 24/7",
+    exclusiveF2: "Huấn luyện viên kèm cặp 1:1 chuyên biệt",
+    exclusiveF3: "Hội viên tinh tuyển giới hạn 150",
   },
 };
 
@@ -285,6 +371,11 @@ const enTranslations: TranslationDictionary = {
   hero: {
     tagline: "NO LIMITS",
     sub: "High-performance training ritual engineered for the disciplined.",
+    highlights: [
+      "Eleiko & Hammer Strength equipment",
+      "Cold plunge & sauna recovery",
+      "Curated cap of 150 members",
+    ],
     liveFeed: "Live Feed // Club Tour",
     location: "Da Nang, VN",
     slides: {
@@ -331,6 +422,11 @@ const enTranslations: TranslationDictionary = {
     title: "Select your level of life.",
     period: "/ month",
     cta: "Join",
+    prices: {
+      essential: "1,490,000 VND",
+      premium: "2,990,000 VND",
+      elite: "5,990,000 VND",
+    },
     plans: {
       essential: {
         f1: "Main floor private access",
@@ -379,7 +475,10 @@ const enTranslations: TranslationDictionary = {
     kicker: "Application",
     title: "Enter The Club",
     header: "Apply for Invitation",
-    sub: "Submit your details. We will schedule a direct interview shortly.",
+    sub: "We will schedule a direct interview shortly.",
+    desc: "Experience elite-tier conditioning space, custom personal coaching, and private athletic recovery rituals.",
+    quote: "Not just a training space, this is where you evolve into your ultimate physical form.",
+    note: "Exclusive experience slots are strictly limited each day!",
     labelName: "Full Name",
     placeholderName: "Alex Johnson",
     labelPhone: "Phone Number",
@@ -422,7 +521,39 @@ const enTranslations: TranslationDictionary = {
         title: "1:1 ELITE COACHING",
         desc: "Tailored physical conditioning & micro-nutrition plans with certified coaches."
       }
-    ]
+    ],
+    quickStats: {
+      access: { label: "Smart access", desc: "Unlimited 24/7 access" },
+      coach: { label: "Personal coach", desc: "1:1 coaching" },
+      intake: { label: "Quick intake", desc: "Fast intake review" },
+    },
+    formBadges: {
+      security: "Encrypted data security",
+      consultation: "Free priority intake",
+      commitment: "Zero lock-in terms",
+    },
+  },
+  footer: {
+    locationTitle: "Club Location",
+    address: "01 September 2 Rd, Hai Chau, Da Nang, Vietnam",
+    contactTitle: "Contact Us",
+    hoursTitle: "Operating Hours",
+    hoursBody: "Open 24/7 for Registered Members",
+    officeHours: "Admissions Office: 08:00 - 22:00 Daily",
+    navTitle: "Navigation",
+    legalTitle: "Legal & Privacy",
+    terms: "Terms",
+    privacy: "Privacy",
+    cookie: "Cookies",
+    newsletterTitle: "Admissions newsletter",
+    newsletterSub: "Get updates on exclusive programs and privilege events.",
+    newsletterPlaceholder: "Your email address",
+    newsletterBtn: "Subscribe",
+    flagship: "DA NANG FLAGSHIP",
+    exclusiveTitle: "EXCLUSIVE PRESTIGE",
+    exclusiveF1: "Unlimited 24/7 club access",
+    exclusiveF2: "Dedicated 1:1 elite coaching",
+    exclusiveF3: "Curated club cap of 150",
   },
 };
 

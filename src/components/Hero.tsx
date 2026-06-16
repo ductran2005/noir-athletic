@@ -97,9 +97,22 @@ export default function Hero() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.45 }}
             id="hero-intro-actions"
           >
-            <p className="text-[#bcb5aa] text-sm md:text-base leading-[1.7] font-light max-w-lg">
+            <p className="text-[#f4efe7] text-base md:text-lg leading-[1.6] font-medium max-w-lg">
               {t.hero.sub}
             </p>
+
+            {/* Key highlight pills */}
+            <ul className="flex flex-col gap-2.5" id="hero-highlights">
+              {t.hero.highlights.map((item, index) => (
+                <li
+                  key={index}
+                  className="flex items-center gap-3 text-[#bcb5aa] text-[13px] md:text-sm font-light"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#b43b2f] shrink-0 shadow-[0_0_10px_rgba(180,59,47,0.7)]" />
+                  {item}
+                </li>
+              ))}
+            </ul>
 
             {/* Interactive smooth anchor action buttons */}
             <div className="flex flex-row items-center gap-3 w-full md:w-auto animate-fade-in" id="hero-button-actions">
