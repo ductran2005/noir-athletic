@@ -167,7 +167,7 @@ export default function Editorial() {
                   <div className="flex items-center gap-2 text-left justify-start">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#b43b2f] animate-pulse" />
                     <span className="text-[9px] uppercase tracking-[2px] text-[#bcb5aa]/60 font-medium">
-                      Noir Athletic Club
+                      No Limits
                     </span>
                   </div>
                 </div>

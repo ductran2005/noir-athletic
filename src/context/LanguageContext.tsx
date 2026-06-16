@@ -121,7 +121,7 @@ interface TranslationDictionary {
 }
 
 const viTranslations: TranslationDictionary = {
-  brand: "NOIR ATHLETIC",
+  brand: "NO LIMITS",
   navLinks: {
     manifesto: "Tuyên ngôn",
     passes: "Thẻ Hội Viên",
@@ -130,7 +130,7 @@ const viTranslations: TranslationDictionary = {
     cta: "Trải Nghiệm Ngay",
   },
   hero: {
-    tagline: "NOIR ATHLETIC CLUB",
+    tagline: "NO LIMITS",
     sub: "Nghi thức rèn luyện cao cấp dành cho người kỷ luật.",
     liveFeed: "Bản Tin Trực Tiếp // Khám Phá CLB",
     location: "Đà Nẵng, VN",
@@ -139,8 +139,8 @@ const viTranslations: TranslationDictionary = {
       strengthDeckDesc: "Khu vực tạ tự do & máy tập tối tân nhất",
       sanctuaryTitle: "SANCTUARY ZONE",
       sanctuaryDesc: "Liệu pháp xông lạnh & thải độc cao cấp",
-      cardioTitle: "CARDIO SUITE",
-      cardioDesc: "Không gian sức bền tối ưu hóa hiệu suất",
+      cardioTitle: "NO LIMITS FLAGSHIP",
+      cardioDesc: "Mặt tiền biểu tượng của câu lạc bộ No Limits",
     },
     stats: {
       accessTitle: "Quyền truy cập",
@@ -154,7 +154,7 @@ const viTranslations: TranslationDictionary = {
   manifesto: {
     kicker: "Tuyên ngôn",
     title: "Không chỉ là phòng tập. Đây là phong cách sống.",
-    body: "NOIR Athletic Club kết hợp tập luyện cao cấp, phục hồi thể chất và đặc quyền riêng tư cho doanh nhân & người sáng tạo.",
+    body: "No Limits kết hợp tập luyện cao cấp, phục hồi thể chất và đặc quyền riêng tư cho doanh nhân & người sáng tạo.",
     pillars: [
       {
         num: "01",
@@ -274,7 +274,7 @@ const viTranslations: TranslationDictionary = {
 };
 
 const enTranslations: TranslationDictionary = {
-  brand: "NOIR ATHLETIC",
+  brand: "NO LIMITS",
   navLinks: {
     manifesto: "Manifesto",
     passes: "Club Pass",
@@ -283,7 +283,7 @@ const enTranslations: TranslationDictionary = {
     cta: "Apply Now",
   },
   hero: {
-    tagline: "NOIR ATHLETIC CLUB",
+    tagline: "NO LIMITS",
     sub: "High-performance training ritual engineered for the disciplined.",
     liveFeed: "Live Feed // Club Tour",
     location: "Da Nang, VN",
@@ -292,8 +292,8 @@ const enTranslations: TranslationDictionary = {
       strengthDeckDesc: "Elite free-weights & state-of-the-art plate loaded biomechanics",
       sanctuaryTitle: "SANCTUARY ZONE",
       sanctuaryDesc: "Premium cold plunge & hyper-recovery therapy",
-      cardioTitle: "CARDIO SUITE",
-      cardioDesc: "High-efficiency cardiovascular conditioning suite",
+      cardioTitle: "NO LIMITS FLAGSHIP",
+      cardioDesc: "The landmark exterior of the No Limits club",
     },
     stats: {
       accessTitle: "Club Access",
@@ -307,7 +307,7 @@ const enTranslations: TranslationDictionary = {
   manifesto: {
     kicker: "Manifesto",
     title: "Not just a gym. This is a lifestyle ritual.",
-    body: "NOIR Athletic Club combines premium training, physical recovery, and private privileges for creators and leaders.",
+    body: "No Limits combines premium training, physical recovery, and private privileges for creators and leaders.",
     pillars: [
       {
         num: "01",

@@ -25,11 +25,12 @@ export default function Passes({ onSelectPass }: PassesProps) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const passesData: ClubPass[] = [
+  const passesData: (ClubPass & { image: string })[] = [
     {
       id: "essential",
       number: "PASS 01",
       title: "Essential",
+      image: "/hero/no-limits-exterior.png",
       features: [t.passes.plans.essential.f1, t.passes.plans.essential.f2, t.passes.plans.essential.f3],
       price: "1.490.000đ",
       period: t.passes.period,
@@ -38,6 +39,7 @@ export default function Passes({ onSelectPass }: PassesProps) {
       id: "premium",
       number: "PASS 02",
       title: "Premium",
+      image: "/hero/no-limits-gym-floor.png",
       features: [t.passes.plans.premium.f1, t.passes.plans.premium.f2, t.passes.plans.premium.f3],
       price: "2.990.000đ",
       period: t.passes.period,
@@ -46,6 +48,7 @@ export default function Passes({ onSelectPass }: PassesProps) {
       id: "elite-pt",
       number: "PASS 03",
       title: "Elite PT",
+      image: "/hero/no-limits-reception.png",
       features: [t.passes.plans.elite.f1, t.passes.plans.elite.f2, t.passes.plans.elite.f3],
       price: "5.990.000đ",
       period: t.passes.period,
@@ -112,7 +115,7 @@ export default function Passes({ onSelectPass }: PassesProps) {
               className={`group rounded-[30px] border border-[#f4efe7]/20 p-8 md:p-[34px] transition-colors duration-500 overflow-hidden ${
                 isMobile 
                   ? "absolute top-0 left-0 w-full h-[440px] bg-[#0c0c0c] shadow-[0_20px_45px_rgba(0,0,0,0.5)] border-[#f4efe7]/15 touch-pan-y select-none" 
-                  : "relative w-full bg-gradient-to-r from-white/[0.04] to-transparent hover:border-[#b43b2f]/40 md:snap-align-none"
+                  : "relative w-full bg-gradient-to-r from-white/[0.04] to-transparent hover:border-[#b43b2f]/40 focus-within:border-[#b43b2f]/40 md:snap-align-none"
               }`}
               style={isMobile ? { transformOrigin: "top center" } : undefined}
               initial={isMobile ? { y: 60, opacity: 0, scale: 0.9 } : { x: -100, opacity: 0, rotate: -1.5 }}
@@ -137,6 +140,17 @@ export default function Passes({ onSelectPass }: PassesProps) {
               whileDrag={{ scale: 1.02, rotate: 1.5 }}
               id={`club-pass-card-${pass.id}`}
             >
+              <div className="hidden md:block absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-700">
+                <img
+                  src={pass.image}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-cover opacity-70 brightness-125 contrast-110 scale-105 group-hover:scale-100 group-focus-within:scale-100 transition-transform duration-[1200ms] ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/45 to-[#050505]/20" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/10 via-transparent to-[#050505]/30" />
+              </div>
+
               {/* Visual separator rule line designed for wide screens */}
               <div className="hidden lg:block absolute top-0 bottom-0 left-[26%] w-[1px] border-l border-dashed border-[#f4efe7]/15" />
 

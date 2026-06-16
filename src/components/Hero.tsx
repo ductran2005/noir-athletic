@@ -6,24 +6,24 @@ import { useTranslation } from "../context/LanguageContext";
 
 export default function Hero() {
   const { t } = useTranslation();
-  const words = ["NOIR", "ATHLETIC", "CLUB"];
+  const words = ["NO", "LIMITS"];
   const [activeSlide, setActiveSlide] = useState(0);
 
   const slides = [
     {
-      url: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1400&auto=format&fit=crop",
-      title: t.hero.slides.strengthDebkTitle,
-      tagline: t.hero.slides.strengthDeckDesc,
-    },
-    {
-      url: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1400&auto=format&fit=crop",
+      url: "/hero/Screenshot 2026-06-16 184918.png",
       title: t.hero.slides.sanctuaryTitle,
       tagline: t.hero.slides.sanctuaryDesc,
     },
     {
-      url: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?q=80&w=1400&auto=format&fit=crop",
+      url: "/hero/Screenshot 2026-06-16 184930.png",
       title: t.hero.slides.cardioTitle,
       tagline: t.hero.slides.cardioDesc,
+    },
+    {
+      url: "/hero/Screenshot 2026-06-16 184939.png",
+      title: t.hero.slides.strengthDebkTitle,
+      tagline: t.hero.slides.strengthDeckDesc,
     },
   ];
 
@@ -36,7 +36,7 @@ export default function Hero() {
 
   return (
     <header
-      className="min-h-screen relative pt-[78px] md:pt-[120px] pb-8 md:pb-10 px-4 md:px-8 lg:px-12 xl:px-16 bg-[#050505] flex items-start md:items-center overflow-hidden"
+      className="min-h-screen relative pt-[94px] md:pt-[120px] pb-8 md:pb-10 px-4 md:px-8 lg:px-12 xl:px-16 bg-[#050505] flex items-start md:items-center overflow-hidden"
       style={{
         backgroundImage:
           "radial-gradient(circle at 75% 20%, rgba(180,59,47,0.2) 0%, transparent 50%)",
@@ -270,21 +270,6 @@ export default function Hero() {
             ))}
           </div>
         </div>
-      </div>
-
-      {/* Kinetic scroll line visual anchor */}
-      <div className="absolute bottom-8 left-6 md:left-11 w-[150px] h-[1px] bg-[#f4efe7]/25 overflow-hidden hidden md:block" id="scroll-line-container">
-        <motion.div
-          className="h-full w-full bg-[#f4efe7]"
-          initial={{ x: "-100%" }}
-          animate={{ x: "100%" }}
-          transition={{
-            repeat: Infinity,
-            duration: 2.2,
-            ease: "linear",
-          }}
-          id="scroll-line-bar"
-        />
       </div>
     </header>
   );

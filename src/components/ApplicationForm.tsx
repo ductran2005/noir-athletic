@@ -229,7 +229,6 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
                   className="relative flex h-full w-full flex-col overflow-hidden rounded-[26px] border border-[#f4efe7]/28 bg-[#090807]/82 p-6 shadow-[0_34px_120px_rgba(0,0,0,0.72),0_0_58px_rgba(255,47,31,0.1)] backdrop-blur-2xl md:p-9"
                   id="registration-form"
                 >
-                  <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#f4efe7]/54 to-transparent" />
                   <div className="absolute right-8 top-8 h-20 w-20 rounded-full bg-[#ff2f1f]/18 blur-2xl" />
 
                   <div id="form-header" className="relative z-10">

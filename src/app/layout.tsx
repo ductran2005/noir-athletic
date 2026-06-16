@@ -2,7 +2,7 @@ import { LanguageProvider } from "../context/LanguageContext";
 import "../index.css";
 
 export const metadata = {
-  title: "Noir Athletic Club",
+  title: "No Limits",
   description: "High-performance training ritual engineered for the disciplined.",
 };
 

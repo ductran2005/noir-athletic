@@ -72,7 +72,7 @@ export default function Ritual() {
           <motion.img
             key={activeRitual.id}
             src={activeRitual.image}
-            alt={`NOIR Athletic Space - ${activeRitual.title}`}
+            alt={`No Limits Athletic Space - ${activeRitual.title}`}
             className="absolute inset-0 w-full h-full object-cover"
             initial={{ opacity: 0, scale: 1.08 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -157,7 +157,7 @@ export default function Ritual() {
               <motion.img
                 key={activeRitual.id}
                 src={activeRitual.image}
-                alt={`NOIR Athletic Space - ${activeRitual.title}`}
+                alt={`No Limits Athletic Space - ${activeRitual.title}`}
                 className="absolute inset-0 w-full h-full object-cover"
                 initial={{ opacity: 0, scale: 1.12 }}
                 animate={{ opacity: 1, scale: 1 }}

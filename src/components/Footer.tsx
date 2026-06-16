@@ -156,9 +156,9 @@ export default function Footer() {
                 <Phone className="w-3.5 h-3.5 text-[#b43b2f] shrink-0" />
                 <span className="font-mono text-[11px] md:text-xs">+84 912 345 678</span>
               </a>
-              <a href="mailto:membership@noirathletic.com" className="hover:text-[#b43b2f] transition-colors flex gap-2 items-center py-1 md:py-0">
+              <a href="mailto:membership@nolimits.com" className="hover:text-[#b43b2f] transition-colors flex gap-2 items-center py-1 md:py-0">
                 <Mail className="w-3.5 h-3.5 text-[#b43b2f] shrink-0" />
-                <span className="truncate font-mono text-[11px] md:text-xs">membership@noirathletic.com</span>
+                <span className="truncate font-mono text-[11px] md:text-xs">membership@nolimits.com</span>
               </a>
             </div>
 
