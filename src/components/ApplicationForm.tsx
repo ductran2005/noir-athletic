@@ -1,23 +1,39 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { Check, ShieldCheck, PhoneCall, User, Fingerprint, Waves, Dumbbell, Target } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { motion } from "motion/react";
+import {
+  Activity,
+  ArrowRight,
+  Check,
+  Crown,
+  Dumbbell,
+  Fingerprint,
+  Headphones,
+  LockKeyhole,
+  PhoneCall,
+  ShieldCheck,
+  Star,
+  Tag,
+  Target,
+  User,
+  Waves,
+} from "lucide-react";
 import { RegistrationForm } from "../types";
 import { useTranslation } from "../context/LanguageContext";
 
 const getPrivilegeIcon = (idx: number) => {
   switch (idx) {
     case 0:
-      return <Fingerprint className="w-5 h-5 text-[#b43b2f]" />;
+      return <Fingerprint className="h-5 w-5" />;
     case 1:
-      return <Waves className="w-5 h-5 text-[#b43b2f]" />;
+      return <Waves className="h-5 w-5" />;
     case 2:
-      return <Dumbbell className="w-5 h-5 text-[#b43b2f]" />;
+      return <Dumbbell className="h-5 w-5" />;
     case 3:
-      return <Target className="w-5 h-5 text-[#b43b2f]" />;
+      return <Target className="h-5 w-5" />;
     default:
-      return <Check className="w-5 h-5 text-[#b43b2f]" />;
+      return <Check className="h-5 w-5" />;
   }
 };
 
@@ -27,29 +43,16 @@ interface ApplicationProps {
 
 export default function ApplicationForm({ selectedPass }: ApplicationProps) {
   const { t } = useTranslation();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
   const [formData, setFormData] = useState<RegistrationForm>({
     name: "",
     phone: "",
     passType: "Essential",
     goals: "",
   });
-
   const [errors, setErrors] = useState<Partial<RegistrationForm>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [memberCode, setMemberCode] = useState("");
 
-  // Sync selected pass from pricing cards click
   useEffect(() => {
     if (selectedPass) {
       setFormData((prev) => ({ ...prev, passType: selectedPass }));
@@ -73,7 +76,6 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      // Create a random membership code
       const randomId = Math.floor(1000 + Math.random() * 9000);
       const categoryCode = formData.passType.replace(" ", "").toUpperCase().substring(0, 5);
       setMemberCode(`NOIR-${categoryCode}-${randomId}`);
@@ -92,252 +94,285 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
     setIsSubmitted(false);
   };
 
+  const fieldBase =
+    "w-full rounded-xl border border-[#f4efe7]/24 bg-[#0b0a09]/76 px-14 py-4 text-base text-[#f4efe7] outline-none transition-all duration-300 placeholder:text-[#bcb5aa]/58 focus:border-[#ff2f1f]/80 focus:bg-[#120f0d]/88 focus:shadow-[0_0_0_4px_rgba(255,47,31,0.14)]";
+  const packageLabel = formData.passType === "Elite PT" ? "ELITE" : formData.passType.toUpperCase();
+  const heroWords = t.form.title.split(" ");
+  const primaryHeroWord = heroWords.slice(0, 2).join(" ") || t.form.title;
+  const secondaryHeroWord = heroWords.slice(2).join(" ") || "Elite Training Club";
+  const quickStats = [
+    { icon: <Activity className="h-7 w-7" />, value: "24/7", label: "Smart access", desc: "Ra vào không giới hạn" },
+    { icon: <Dumbbell className="h-7 w-7" />, value: "1:1", label: "Personal coach", desc: "Huấn luyện cá nhân" },
+    { icon: <Star className="h-7 w-7" />, value: "15 min", label: "Quick intake", desc: "Tư vấn nhanh chóng" },
+  ];
+  const formBadges = [
+    { icon: <LockKeyhole className="h-5 w-5" />, label: "Bảo mật thông tin" },
+    { icon: <Headphones className="h-5 w-5" />, label: "Tư vấn miễn phí" },
+    { icon: <ShieldCheck className="h-5 w-5" />, label: "Không cam kết ràng buộc" },
+  ];
+
   return (
     <section
       id="join"
-      className="min-h-0 lg:min-h-screen bg-[#050505] text-[#f4efe7] px-4 sm:px-6 md:px-11 py-14 sm:py-16 md:py-32 flex items-start lg:items-center relative overflow-hidden scroll-mt-20 lg:scroll-mt-28"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle at 75% 20%, rgba(180,59,47,0.22) 0%, transparent 40%)",
-      }}
+      className="relative min-h-screen overflow-hidden bg-[#050505] px-4 py-16 text-[#f4efe7] scroll-mt-20 sm:px-6 md:px-11 md:py-24 lg:py-28"
     >
-      <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center z-10" id="join-columns-container">
-        {/* Title block on Left (Takes up 6 out of 12 columns) - Make it significantly larger ("context to hơn") */}
-        <div id="join-headline-wrapper" className="lg:col-span-6 flex flex-col justify-center select-none">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute inset-0 bg-[url('/hero/no-limits-gym-floor.png')] bg-cover bg-center opacity-48" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_86%_36%,rgba(255,47,31,0.22),transparent_32%),linear-gradient(90deg,rgba(5,5,5,0.94)_0%,rgba(5,5,5,0.72)_46%,rgba(5,5,5,0.9)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.62)_0%,rgba(5,5,5,0.18)_48%,rgba(5,5,5,0.92)_100%)]" />
+        <div className="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_72%_50%,rgba(255,47,31,0.18),transparent_38%)]" />
+      </div>
+
+      <div className="relative z-10 mx-auto grid w-full max-w-[1380px] grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14" id="join-columns-container">
+        <div id="join-headline-wrapper" className="select-none lg:col-span-7">
           <motion.div
-            className="text-[#b43b2f] uppercase tracking-[3px] md:tracking-[4px] text-[10px] md:text-sm font-bold mb-2.5 md:mb-6 font-display"
+            className="mb-7 flex flex-wrap items-center gap-4 text-[11px] font-black uppercase tracking-[5px] text-[#ff2f1f] md:text-sm"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
             id="join-kicker"
           >
-            {t.form.kicker}
+            <span className="h-px w-12 bg-[#ff2f1f]" />
+            <span>Membership access</span>
           </motion.div>
 
           <motion.h2
-            className="text-[clamp(44px,13vw,64px)] md:text-[clamp(48px,6vw,96px)] leading-[0.92] md:leading-[1.0] tracking-normal md:tracking-[-3px] uppercase font-[950] font-sans text-left text-[#f4efe7]"
+            className="max-w-[820px] text-left font-sans text-[clamp(54px,8.4vw,118px)] font-[950] uppercase leading-[0.86] text-[#f4efe7]"
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             id="join-title"
           >
-            {t.form.title.split(" ").map((word, idx) => (
-              <span key={idx} className="inline-block mr-[0.25em] last:mr-0">
-                {word}
-              </span>
-            ))}
+            <span className="block drop-shadow-[0_7px_22px_rgba(0,0,0,0.8)]">{primaryHeroWord}</span>
+            <span className="mt-2 block bg-gradient-to-b from-[#ff3b28] via-[#ef2b1c] to-[#a91008] bg-clip-text text-[0.78em] text-transparent drop-shadow-[0_10px_30px_rgba(255,47,31,0.34)]">
+              {secondaryHeroWord}
+            </span>
           </motion.h2>
 
-          {/* Elegant divider line */}
-          <motion.div 
-            className="h-[1px] w-24 bg-gradient-to-r from-[#b43b2f] to-transparent mt-6 mb-8 hidden lg:block"
-            initial={{ width: 0, opacity: 0 }}
-            whileInView={{ width: 96, opacity: 1 }}
+          <motion.p
+            className="mt-7 max-w-[580px] text-base font-light leading-relaxed text-[#f4efe7]/88 md:text-[21px]"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          />
+            transition={{ duration: 0.7, delay: 0.08 }}
+          >
+            Trải nghiệm không gian tập luyện đẳng cấp, huấn luyện cá nhân hóa và hệ sinh thái phục hồi chuẩn private club.
+          </motion.p>
 
-          {/* Privileges list below the title */}
-          <div className="mt-7 md:mt-8 lg:mt-0 space-y-2.5 md:space-y-3.5 max-w-xl" id="join-privileges">
-            {t.form.privileges?.map((priv, idx) => (
+          <motion.div
+            className="mt-9 grid max-w-[620px] grid-cols-3 gap-0 md:mt-11"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.75, delay: 0.12 }}
+          >
+            {quickStats.map((item, idx) => (
+              <div key={item.label} className={`flex flex-col items-center gap-2 px-3 text-center ${idx > 0 ? "border-l border-[#f4efe7]/20" : ""}`}>
+                <div className="relative flex h-[74px] w-[74px] items-center justify-center rounded-full border border-[#f4efe7]/58 text-[#f4efe7] shadow-[0_0_24px_rgba(255,47,31,0.12)]">
+                  <span className="absolute inset-[-2px] rounded-full border-t-2 border-r-2 border-[#ff2f1f]" />
+                  {item.icon}
+                </div>
+                <strong className="text-sm font-black uppercase text-[#f4efe7]">{item.value}</strong>
+                <span className="text-xs font-black uppercase text-[#f4efe7] md:text-sm">{item.label}</span>
+                <span className="text-xs font-light text-[#bcb5aa]">{item.desc}</span>
+              </div>
+            ))}
+          </motion.div>
+
+          <div className="mt-8 grid max-w-[675px] grid-cols-1 overflow-hidden rounded-lg border border-[#f4efe7]/10 bg-[#050505]/62 backdrop-blur-sm sm:grid-cols-3" id="join-privileges">
+            {t.form.privileges?.slice(0, 3).map((priv, idx) => (
               <motion.div
                 key={idx}
-                className="group flex gap-3 md:gap-4 p-3 md:p-4 rounded-xl md:rounded-2xl border border-[#f4efe7]/8 md:border-[#f4efe7]/0 bg-white/[0.02] md:bg-white/0 hover:border-[#f4efe7]/10 hover:bg-white/[0.03] md:hover:bg-white/[0.02] transition-all duration-500 cursor-pointer relative overflow-hidden"
+                className={`group relative flex flex-col gap-4 p-7 transition-colors duration-300 hover:bg-[#f4efe7]/5 ${idx > 0 ? "border-t border-[#f4efe7]/10 sm:border-l sm:border-t-0" : ""}`}
                 initial={{ x: -30, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.8, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
               >
-                {/* A subtle glowing circle inside the hovered card */}
-                <div className="absolute -inset-px bg-gradient-to-r from-[#b43b2f]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl md:rounded-2xl pointer-events-none" />
-                
-                <div className="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-[#b43b2f]/7 border border-[#b43b2f]/15 group-hover:bg-[#b43b2f]/15 group-hover:border-[#b43b2f]/30 transition-all duration-500 relative z-10 shrink-0">
-                  {getPrivilegeIcon(idx)}
+                <div className="flex items-center justify-between gap-4">
+                  <span className="font-display text-lg font-black text-[#ff2f1f]">{priv.num}</span>
+                  <span className="text-[#f4efe7] transition-colors duration-300 group-hover:text-[#ff2f1f]">{idx === 0 ? <Crown className="h-8 w-8" /> : getPrivilegeIcon(idx)}</span>
                 </div>
-                
-                <div className="flex-1 min-w-0 space-y-1 relative z-10">
-                  <div className="flex items-start gap-2">
-                    <span className="text-[9px] md:text-[10px] leading-[1.25] pt-0.5 font-black text-[#b43b2f] tracking-widest font-display shrink-0">
-                      {priv.num}
-                    </span>
-                    <h4 className="text-[13px] md:text-base leading-snug font-extrabold uppercase tracking-normal md:tracking-wider text-[#f4efe7] group-hover:text-[#b43b2f] transition-colors duration-300">
-                      {priv.title}
-                    </h4>
-                  </div>
-                  <p className="text-[11px] md:text-sm text-[#9e978f] font-light leading-[1.55] md:leading-relaxed group-hover:text-[#bcb5aa] transition-colors duration-300">
+                <div className="min-w-0">
+                  <h4 className="text-base font-black uppercase leading-snug text-[#f4efe7] transition-colors duration-300 group-hover:text-[#ff2f1f]">
+                    {priv.title}
+                  </h4>
+                  <p className="mt-3 text-sm font-light leading-[1.65] text-[#d5cec4] transition-colors duration-300 group-hover:text-[#f4efe7]">
                     {priv.desc}
                   </p>
                 </div>
               </motion.div>
             ))}
           </div>
+
+          <motion.p
+            className="mt-8 hidden max-w-[690px] items-center gap-4 text-sm italic leading-relaxed text-[#c9c0b4] sm:flex md:text-base"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.75, delay: 0.22 }}
+          >
+            <span className="font-display text-4xl font-black not-italic leading-none text-[#ff2f1f]">“</span>
+            <span>Không chỉ là nơi tập luyện, đây là nơi bạn trở thành phiên bản tốt nhất của chính mình.</span>
+            <span className="font-display text-4xl font-black not-italic leading-none text-[#ff2f1f]">”</span>
+          </motion.p>
         </div>
 
-        {/* Form or Ticket display block on Right (Takes up 6 out of 12 columns) - Taller and broader padding & font sizes */}
-        <div className="lg:col-span-6 flex justify-center lg:justify-end w-full z-10" id="join-form-wrapper">
-          <div className="perspective-1000 w-full max-w-lg h-[560px] sm:h-[590px] md:h-[620px] relative" id="join-card-container">
-            <div className={`w-full h-full transition-transform duration-1000 transform-style-3d relative ${isSubmitted ? "rotate-y-180" : ""}`}>
-              
-              {/* Front Side: Form */}
-              <div className={`absolute inset-0 w-full h-full backface-hidden z-10 ${isSubmitted ? "pointer-events-none" : ""}`}>
+        <div className="flex w-full justify-center lg:col-span-5 lg:justify-end" id="join-form-wrapper">
+          <div className="perspective-1000 relative h-[820px] w-full max-w-[545px] md:h-[800px]" id="join-card-container">
+            <div className={`relative h-full w-full transform-style-3d transition-transform duration-1000 ${isSubmitted ? "rotate-y-180" : ""}`}>
+              <div className={`absolute inset-0 z-10 h-full w-full backface-hidden ${isSubmitted ? "pointer-events-none" : ""}`}>
                 <form
                   onSubmit={handleSubmit}
-                  className="w-full h-full p-5 md:p-10 pb-8 rounded-[24px] md:rounded-[32px] border border-[#f4efe7]/15 bg-white/[0.04] backdrop-blur-[24px] flex flex-col justify-between shadow-[0_25px_60px_rgba(0,0,0,0.6)]"
+                  className="relative flex h-full w-full flex-col overflow-hidden rounded-[26px] border border-[#f4efe7]/28 bg-[#090807]/82 p-6 shadow-[0_34px_120px_rgba(0,0,0,0.72),0_0_58px_rgba(255,47,31,0.1)] backdrop-blur-2xl md:p-9"
                   id="registration-form"
                 >
-                  <div id="form-header" className="text-center md:text-left">
-                    {/* Make header and subtitle larger and cleaner */}
-                    <h3 className="text-lg md:text-2xl font-black tracking-tight uppercase mb-1.5 md:mb-2 text-[#f4efe7]">
-                      {t.form.header}
-                    </h3>
-                    <p className="text-[#9e978f] text-xs md:text-sm font-light leading-relaxed">
-                      {t.form.sub}
-                    </p>
-                  </div>
+                  <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#f4efe7]/54 to-transparent" />
+                  <div className="absolute right-8 top-8 h-20 w-20 rounded-full bg-[#ff2f1f]/18 blur-2xl" />
 
-                  {/* Name Input */}
-                  <div className="flex flex-col gap-1 md:gap-2" id="input-group-name">
-                    <label className="text-[9px] md:text-[10px] uppercase tracking-[1.5px] md:tracking-[2px] text-[#bcb5aa] font-bold">
-                      {t.form.labelName}
-                    </label>
-                    <div className="relative flex items-center">
-                      <User className="absolute left-0 text-[#b43b2f] w-4 h-4 opacity-90" />
-                      <input
-                        type="text"
-                        placeholder={t.form.placeholderName}
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-transparent border-0 border-b border-[#f4efe7]/25 focus:border-[#b43b2f] text-[#f4efe7] pl-6 py-2 md:py-3 transition-colors duration-300 outline-none text-sm md:text-base placeholder-[#9e978f]/50 font-medium"
-                        id="form-input-name"
-                      />
+                  <div id="form-header" className="relative z-10">
+                    <div className="mb-5 flex items-start justify-between gap-4">
+                      <div>
+                        <p className="mb-7 inline-flex rounded-full border border-[#ff2f1f] px-4 py-2 text-[11px] font-black uppercase tracking-[4px] text-[#ff2f1f]">Private intake</p>
+                        <h3 className="text-3xl font-black uppercase leading-[1.04] text-[#f4efe7] md:text-[34px]">
+                          {t.form.header}
+                        </h3>
+                      </div>
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-[#ff2f1f]/42 bg-[#ff2f1f]/12 text-[#ff2f1f] shadow-[0_0_30px_rgba(255,47,31,0.3)]">
+                        <ShieldCheck className="h-8 w-8" />
+                      </div>
                     </div>
-                    {errors.name && (
-                      <span className="text-[#b43b2f] text-[11px] font-medium mt-1">{errors.name}</span>
-                    )}
+                    <p className="max-w-sm text-base font-light leading-relaxed text-[#f4efe7]/82">Nhận lịch tư vấn miễn phí cùng coach trong hôm nay.</p>
                   </div>
 
-                  {/* Phone Input */}
-                  <div className="flex flex-col gap-1 md:gap-2" id="input-group-phone">
-                    <label className="text-[9px] md:text-[10px] uppercase tracking-[1.5px] md:tracking-[2px] text-[#bcb5aa] font-bold">
-                      {t.form.labelPhone}
-                    </label>
-                    <div className="relative flex items-center">
-                      <PhoneCall className="absolute left-0 text-[#b43b2f] w-4 h-4 opacity-90" />
-                      <input
-                        type="text"
-                        placeholder={t.form.placeholderPhone}
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full bg-transparent border-0 border-b border-[#f4efe7]/25 focus:border-[#b43b2f] text-[#f4efe7] pl-6 py-2 md:py-3 transition-colors duration-300 outline-none text-sm md:text-base placeholder-[#9e978f]/50 font-medium"
-                        id="form-input-phone"
-                      />
+                  <div className="relative z-10 mt-6 flex flex-1 flex-col gap-4">
+                    <div className="flex flex-col gap-2" id="input-group-name">
+                      <div className="relative flex items-center">
+                        <User className="absolute left-5 h-5 w-5 text-[#f4efe7]/70" />
+                        <input
+                          type="text"
+                          placeholder={t.form.placeholderName}
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className={fieldBase}
+                          id="form-input-name"
+                        />
+                      </div>
+                      {errors.name && <span className="text-xs font-medium text-[#d44c40]">{errors.name}</span>}
                     </div>
-                    {errors.phone && (
-                      <span className="text-[#b43b2f] text-[11px] font-medium mt-1">{errors.phone}</span>
-                    )}
+
+                    <div className="flex flex-col gap-2" id="input-group-phone">
+                      <div className="relative flex items-center">
+                        <PhoneCall className="absolute left-5 h-5 w-5 text-[#f4efe7]/70" />
+                        <input
+                          type="text"
+                          placeholder={t.form.placeholderPhone}
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          className={fieldBase}
+                          id="form-input-phone"
+                        />
+                      </div>
+                      {errors.phone && <span className="text-xs font-medium text-[#d44c40]">{errors.phone}</span>}
+                    </div>
+
+                    <div className="flex flex-col gap-2" id="input-group-package">
+                      <div className="relative flex items-center">
+                        <Tag className="absolute left-5 h-5 w-5 text-[#f4efe7]/70" />
+                        <select
+                          value={formData.passType}
+                          onChange={(e) => setFormData({ ...formData, passType: e.target.value })}
+                          className="w-full cursor-pointer appearance-none rounded-xl border border-[#f4efe7]/24 bg-[#0b0a09]/76 px-14 py-4 text-base font-semibold text-[#f4efe7] outline-none transition-all duration-300 focus:border-[#ff2f1f]/80 focus:bg-[#120f0d]/88 focus:shadow-[0_0_0_4px_rgba(255,47,31,0.14)]"
+                          id="form-select-pack"
+                        >
+                          <option value="Essential" className="bg-[#111111] text-[#f4efe7]">
+                            {t.form.options.essential}
+                          </option>
+                          <option value="Premium" className="bg-[#111111] text-[#f4efe7]">
+                            {t.form.options.premium}
+                          </option>
+                          <option value="Elite PT" className="bg-[#111111] text-[#f4efe7]">
+                            {t.form.options.elite}
+                          </option>
+                        </select>
+                        <ArrowRight className="pointer-events-none absolute right-5 h-5 w-5 rotate-90 text-[#f4efe7]" />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2" id="input-group-goals">
+                      <div className="relative flex">
+                        <Target className="absolute left-5 top-5 h-5 w-5 text-[#f4efe7]/70" />
+                        <textarea
+                          rows={3}
+                          placeholder="Mục tiêu tập luyện của bạn"
+                          value={formData.goals}
+                          onChange={(e) => setFormData({ ...formData, goals: e.target.value })}
+                          className="w-full resize-none rounded-xl border border-[#f4efe7]/24 bg-[#0b0a09]/76 px-14 py-4 text-base font-light text-[#f4efe7] outline-none transition-all duration-300 placeholder:text-[#bcb5aa]/58 focus:border-[#ff2f1f]/80 focus:bg-[#120f0d]/88 focus:shadow-[0_0_0_4px_rgba(255,47,31,0.14)]"
+                          id="form-textarea-goals"
+                        />
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Select Package dropdown */}
-                  <div className="flex flex-col gap-1 md:gap-2" id="input-group-package">
-                    <label className="text-[9px] md:text-[10px] uppercase tracking-[1.5px] md:tracking-[2px] text-[#bcb5aa] font-bold">
-                      {t.form.labelPackage}
-                    </label>
-                    <select
-                      value={formData.passType}
-                      onChange={(e) => setFormData({ ...formData, passType: e.target.value })}
-                      className="w-full bg-transparent border-0 border-b border-[#f4efe7]/25 focus:border-[#b43b2f] text-[#f4efe7] py-2 md:py-3 transition-colors duration-300 outline-none text-sm md:text-base cursor-pointer font-medium"
-                      id="form-select-pack"
-                    >
-                      <option value="Essential" className="bg-[#111111] text-[#f4efe7]">
-                        {t.form.options.essential}
-                      </option>
-                      <option value="Premium" className="bg-[#111111] text-[#f4efe7]">
-                        {t.form.options.premium}
-                      </option>
-                      <option value="Elite PT" className="bg-[#111111] text-[#f4efe7]">
-                        {t.form.options.elite}
-                      </option>
-                    </select>
-                  </div>
+                  <div className="relative z-10 mt-5 flex flex-col gap-5" id="form-submit-block">
+                    <div className="grid grid-cols-3 gap-2">
+                      {formBadges.map((badge, idx) => (
+                        <div key={idx} className="flex items-center gap-2 border-r border-[#f4efe7]/12 pr-2 last:border-r-0 last:pr-0">
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#f4efe7]/22 text-[#f4efe7]">
+                            {badge.icon}
+                          </span>
+                          <span className="text-[11px] font-light leading-snug text-[#f4efe7]/82">{badge.label}</span>
+                        </div>
+                      ))}
+                    </div>
 
-                  {/* Training goals text */}
-                  <div className="flex flex-col gap-1 md:gap-2" id="input-group-goals">
-                    <label className="text-[9px] md:text-[10px] uppercase tracking-[1.5px] md:tracking-[2px] text-[#bcb5aa] font-bold">
-                      {t.form.labelGoals}
-                    </label>
-                    <textarea
-                      rows={2}
-                      placeholder={t.form.placeholderGoals}
-                      value={formData.goals}
-                      onChange={(e) => setFormData({ ...formData, goals: e.target.value })}
-                      className="w-full bg-transparent border-0 border-b border-[#f4efe7]/25 focus:border-[#b43b2f] text-[#f4efe7] py-2 md:py-3 transition-colors duration-300 outline-none text-sm md:text-base resize-none placeholder-[#9e978f]/40 font-light"
-                      id="form-textarea-goals"
-                    />
-                  </div>
-
-                  {/* Action and security footer */}
-                  <div className="mt-1 flex flex-col gap-3 md:gap-4" id="form-submit-block">
                     <button
                       type="submit"
-                      className="w-full py-3 md:py-4 px-6 rounded-full bg-[#f4efe7] text-[#050505] text-[11px] md:text-xs uppercase tracking-[1.5px] md:tracking-[2px] font-black cursor-pointer hover:bg-[#b43b2f] hover:text-[#f4efe7] active:scale-[0.98] transition-all duration-300 leading-none shadow-lg text-center"
+                      className="group flex w-full cursor-pointer items-center justify-center gap-4 rounded-xl bg-[#ff2f1f] px-6 py-5 text-center text-base font-black uppercase leading-none text-[#f4efe7] shadow-[0_20px_58px_rgba(255,47,31,0.28)] transition-all duration-300 hover:bg-[#f4efe7] hover:text-[#050505] active:scale-[0.98] md:text-lg"
                       id="form-submit-btn"
                     >
-                      {t.form.btnSubmit}
+                      <span>Giữ suất trải nghiệm</span>
+                      <ArrowRight className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1" />
                     </button>
 
-                    <p className="flex items-center justify-center gap-1.5 text-[9px] md:text-[10px] text-[#9e978f]/90 font-light tracking-[0.5px]">
-                      <ShieldCheck className="w-4 h-4 text-[#b43b2f]" /> {t.form.securityBadge}
+                    <p className="flex items-center justify-center gap-1 text-center text-sm font-light text-[#c9c0b4]">
+                      Số lượng suất trải nghiệm <span className="font-black text-[#ff2f1f]">có hạn</span> mỗi ngày!
                     </p>
                   </div>
                 </form>
               </div>
 
-              {/* Back Side: Digital Membership Pass Card */}
-              <div className={`absolute inset-0 w-full h-full backface-hidden rotate-y-180 z-0 ${!isSubmitted ? "pointer-events-none" : ""}`}>
+              <div className={`absolute inset-0 z-0 h-full w-full rotate-y-180 backface-hidden ${!isSubmitted ? "pointer-events-none" : ""}`}>
                 <div
-                  className="w-full h-full rounded-[24px] md:rounded-[32px] border border-[#f4efe7]/25 bg-gradient-to-br from-[#1c1a16] to-[#0a0a0a] shadow-2xl overflow-hidden relative p-8 md:p-11 text-center flex flex-col justify-between"
+                  className="relative flex h-full w-full flex-col justify-between overflow-hidden rounded-[22px] border border-[#f4efe7]/25 bg-gradient-to-br from-[#211916] via-[#0d0c0b] to-[#050505] p-7 text-center shadow-[0_40px_120px_rgba(0,0,0,0.72)] md:p-10"
                   id="success-membership-pass"
                 >
-                  {/* Card visual elements */}
-                  <div className="absolute top-0 left-0 w-32 h-32 bg-[#b43b2f]/10 rounded-full blur-3xl pointer-events-none" />
-                  <div className="absolute bottom-0 right-0 w-44 h-44 bg-[#b43b2f]/8 rounded-full blur-3xl pointer-events-none" />
+                  <div className="absolute inset-0 opacity-25 [background:repeating-linear-gradient(90deg,transparent_0px,transparent_10px,rgba(244,239,231,0.08)_11px)]" />
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-[#d44c40] to-transparent" />
 
-                  {/* Header section */}
-                  <div className="flex flex-col gap-3 relative z-10" id="card-pass-header">
-                    <div className="flex items-center justify-center gap-1.5" id="card-logo-container">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#b43b2f] animate-pulse" />
-                      <span className="text-[11px] uppercase font-bold tracking-[3px] text-[#b43b2f] font-display">
-                        Noir Athletic Club
-                      </span>
+                  <div className="relative z-10 flex flex-col gap-3" id="card-pass-header">
+                    <div className="flex items-center justify-center gap-2" id="card-logo-container">
+                      <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-[#d44c40]" />
+                      <span className="font-display text-[11px] font-bold uppercase tracking-[3px] text-[#d44c40]">Noir Athletic Club</span>
                     </div>
-                    <h3 className="text-2xl md:text-3xl font-black uppercase tracking-wide text-[#f4efe7]">
-                      {t.form.cardTitle}
-                    </h3>
-                    <div className="h-[1px] w-14 bg-[#b43b2f] mx-auto mt-1" />
+                    <h3 className="text-3xl font-black uppercase tracking-tight text-[#f4efe7] md:text-4xl">{t.form.cardTitle}</h3>
+                    <div className="mx-auto mt-1 h-px w-16 bg-[#d44c40]" />
                   </div>
 
-                  {/* Card barcode and ID body */}
-                  <div className="flex flex-col gap-6 relative z-10 items-center justify-center my-2" id="card-pass-body">
-                    {/* Member name stamp */}
+                  <div className="relative z-10 my-2 flex flex-col items-center justify-center gap-7" id="card-pass-body">
                     <div id="card-member-name">
-                      <span className="text-[11px] text-[#8d867c] uppercase tracking-[2px] block font-light">
-                        {t.form.cardBadge}
-                      </span>
-                      <div className="text-2xl md:text-3xl font-extrabold text-[#f4efe7] uppercase tracking-wide mt-1">
-                        {formData.name}
-                      </div>
+                      <span className="block text-[11px] font-light uppercase tracking-[2px] text-[#8d867c]">{t.form.cardBadge}</span>
+                      <div className="mt-2 text-3xl font-black uppercase tracking-tight text-[#f4efe7] md:text-4xl">{formData.name}</div>
                     </div>
 
-                    {/* Membership level badge */}
-                    <div className="py-2.5 px-8 rounded-full bg-[#b43b2f] border border-[#b43b2f] text-[#f4efe7] font-black text-xs md:text-sm uppercase tracking-[3px] font-display" id="card-member-level">
+                    <div className="border border-[#d44c40] bg-[#d44c40] px-8 py-3 font-display text-xs font-black uppercase tracking-[3px] text-[#f4efe7] md:text-sm" id="card-member-level">
                       {formData.passType} Pass
                     </div>
 
-                    {/* Unique Serial Barcode design */}
-                    <div className="flex flex-col items-center gap-1 mt-2 w-full max-w-[260px] opacity-90" id="card-pass-barcode-block">
-                      <div className="flex gap-[2px] h-11 w-full justify-center" id="barcode-bars">
+                    <div className="mt-2 flex w-full max-w-[300px] flex-col items-center gap-2 opacity-90" id="card-pass-barcode-block">
+                      <div className="flex h-14 w-full justify-center gap-[3px]" id="barcode-bars">
                         {[3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8].map((w, i) => (
                           <span
                             key={i}
@@ -349,17 +384,14 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
                           />
                         ))}
                       </div>
-                      <div className="text-[11px] text-[#9e978f] tracking-[1.5px] font-mono mt-1 font-semibold">
-                        {memberCode}
-                      </div>
+                      <div className="mt-1 font-mono text-[11px] font-semibold tracking-[1.5px] text-[#9e978f]">{memberCode}</div>
                     </div>
                   </div>
 
-                  {/* Card Footer actions */}
-                  <div className="flex flex-col gap-4 relative z-10" id="card-pass-footer">
-                    <div className="flex items-center gap-2 justify-center text-xs md:text-sm text-[#bcb5aa]" id="card-status-ok">
-                      <span className="w-5 h-5 rounded-full bg-emerald-950 border border-emerald-500/30 text-emerald-400 flex items-center justify-center font-bold text-[10px]">
-                        <Check className="w-3.5 h-3.5 stroke-[3]" />
+                  <div className="relative z-10 flex flex-col gap-4" id="card-pass-footer">
+                    <div className="flex items-center justify-center gap-2 text-xs text-[#bcb5aa] md:text-sm" id="card-status-ok">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-950 text-[10px] font-bold text-emerald-400">
+                        <Check className="h-3.5 w-3.5 stroke-[3]" />
                       </span>
                       <span>{t.form.cardSuccessMsg}</span>
                     </div>
@@ -367,7 +399,7 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
                     <button
                       type="button"
                       onClick={handleReset}
-                      className="w-full py-3.5 px-6 rounded-full border border-[#f4efe7]/20 hover:border-[#b43b2f]/40 hover:bg-[#b43b2f]/10 text-[#f4efe7] text-[11px] md:text-xs uppercase tracking-[2px] font-bold cursor-pointer transition-all duration-300"
+                      className="w-full cursor-pointer rounded-2xl border border-[#f4efe7]/20 px-6 py-4 text-[11px] font-bold uppercase tracking-[2px] text-[#f4efe7] transition-all duration-300 hover:border-[#d44c40]/50 hover:bg-[#d44c40]/10 md:text-xs"
                       id="card-reset-btn"
                     >
                       {t.form.cardBtnReset}
@@ -375,7 +407,6 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
