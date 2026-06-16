@@ -1,0 +1,6 @@
+{
+  "name": "NOIR Athletic Club",
+  "description": "Câu lạc bộ thể hình cao cấp dành cho những người xem kỷ luật là phong cách sống · Da Nang",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
