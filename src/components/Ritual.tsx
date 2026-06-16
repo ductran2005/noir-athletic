@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { TrainingRitual } from "../types";
@@ -41,7 +43,7 @@ export default function Ritual() {
   const activeRitual = rituals.find((r) => r.id === activeRitualId) || rituals[0];
 
   return (
-    <section id="ritual" className="bg-[#111111] px-4 md:px-11 py-12 md:py-28 overflow-hidden text-[#f4efe7]">
+    <section id="ritual" className="bg-[#111111] px-4 md:px-11 py-12 md:py-28 overflow-hidden text-[#f4efe7] scroll-mt-20 lg:scroll-mt-28">
       <motion.div
         className="text-[#b43b2f] uppercase tracking-[4px] text-[10px] md:text-xs font-bold mb-3 md:mb-5 font-display"
         initial={{ y: 20, opacity: 0 }}
@@ -64,8 +66,27 @@ export default function Ritual() {
         {t.ritual.title}
       </motion.h2>
 
+      {/* Mobile/tablet image stays visible before the menu when the layout collapses. */}
+      <div className="lg:hidden relative h-[240px] sm:h-[320px] rounded-2xl overflow-hidden border border-[#f4efe7]/10 bg-[#050505] mt-8" id="ritual-mobile-display-wrapper">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={activeRitual.id}
+            src={activeRitual.image}
+            alt={`NOIR Athletic Space - ${activeRitual.title}`}
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0, scale: 1.08 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            referrerPolicy="no-referrer"
+            id={`ritual-mobile-active-image-${activeRitual.id}`}
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/10 pointer-events-none" />
+      </div>
+
       {/* Interactive Layout Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-6 md:gap-11 items-stretch mt-8 md:mt-16" id="ritual-interactive-grid">
+      <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 md:gap-11 items-stretch mt-6 md:mt-10 lg:mt-16" id="ritual-interactive-grid">
         {/* Left Side: Buttons Menu list */}
         <div className="flex flex-col gap-3 md:gap-4 justify-center" id="ritual-buttons-menu">
           {rituals.map((ritual) => {
@@ -111,16 +132,6 @@ export default function Ritual() {
                           {ritual.description}
                         </p>
 
-                        {/* Mobile active image container */}
-                        <div className="block md:hidden mt-4 h-[200px] rounded-xl overflow-hidden relative w-full border border-black/10">
-                          <img
-                            src={ritual.image}
-                            alt={ritual.title}
-                            className="w-full h-full object-cover"
-                            referrerPolicy="no-referrer"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -131,7 +142,7 @@ export default function Ritual() {
         </div>
 
         {/* Right Side: Image display block with luxury slanted shape - Desktop Only */}
-        <div className="hidden md:block relative min-h-[500px] rounded-[34px] overflow-hidden" id="ritual-display-wrapper">
+        <div className="hidden lg:block relative min-h-[500px] rounded-[34px] overflow-hidden" id="ritual-display-wrapper">
           <div
             className="w-full h-full overflow-hidden block relative transition-transform duration-700"
             style={{

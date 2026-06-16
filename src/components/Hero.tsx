@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useTranslation } from "../context/LanguageContext";
@@ -49,11 +51,11 @@ export default function Hero() {
 
       {/* Main Structural Asymmetric Grid */}
       <div
-        className="w-full max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center z-10"
+        className="w-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center z-10"
         id="hero-columns-container"
       >
         {/* Left Column: Mighty Typography & Core Actions (Takes up 6 out of 12 columns for a wider left-right distribution) */}
-        <div className="lg:col-span-6 flex flex-col gap-4 md:gap-8 justify-center pr-0 lg:pr-6" id="hero-left-column">
+        <div className="md:col-span-6 flex flex-col gap-4 md:gap-8 justify-center pr-0 lg:pr-6" id="hero-left-column">
           <motion.div
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -67,11 +69,11 @@ export default function Hero() {
 
           {/* Colossal Title Stacks */}
           <div className="pointer-events-none" id="hero-colossal-title">
-            <h1 className="text-[clamp(44px,7.8vw,115px)] font-[950] tracking-[-2px] md:tracking-[-5px] uppercase text-[#f4efe7] leading-[0.82] text-left">
+            <h1 className="text-[clamp(44px,7.8vw,115px)] font-[950] tracking-[-2px] md:tracking-[-5px] uppercase text-[#f4efe7] leading-[0.95] text-left">
               {words.map((word, index) => (
-                <span key={index} className="block overflow-hidden h-fit" id={`hero-word-${word.toLowerCase()}`}>
+                <span key={index} className="inline-block overflow-hidden h-fit mr-[0.25em] last:mr-0" id={`hero-word-${word.toLowerCase()}`}>
                   <motion.span
-                    className="block"
+                    className="inline-block"
                     initial={{ y: "110%", opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{
@@ -115,8 +117,8 @@ export default function Hero() {
               </a>
             </div>
 
-            {/* Compact stats visible ONLY on mobile/tablet (below buttons, above cover image) */}
-            <div className="block lg:hidden mt-4 pt-4 border-t border-[#f4efe7]/10" id="hero-metrics-mobile">
+            {/* Compact stats visible ONLY on mobile (below buttons, above cover image) */}
+            <div className="block md:hidden mt-4 pt-4 border-t border-[#f4efe7]/10" id="hero-metrics-mobile">
               <div className="grid grid-cols-3 gap-2">
                 {[
                   { label: t.hero.stats.accessTitle, value: t.hero.stats.accessVal },
@@ -144,11 +146,11 @@ export default function Hero() {
         </div>
 
         {/* Right Column: Dynamic Editorial Cover Frame & Stats (Takes up 6 out of 12 columns - Made wider and taller) */}
-        <div className="lg:col-span-6 flex flex-col gap-8 md:gap-10" id="hero-right-column">
+        <div className="md:col-span-6 flex flex-col gap-8 md:gap-10" id="hero-right-column">
           {/* Cover Art Frame with Slide controls & elegant space info layout */}
           <div className="relative group/hero-frame w-full flex-shrink-0" id="hero-interactive-card">
             <motion.div
-              className="hero-visual h-[38vh] lg:h-[58vh] xl:h-[62vh] rounded-[30px] overflow-hidden relative shadow-[0_25px_60px_rgba(0,0,0,0.65)] border border-[#f4efe7]/10 w-full"
+              className="hero-visual h-[38vh] md:h-[48vh] lg:h-[58vh] xl:h-[62vh] rounded-[30px] overflow-hidden relative shadow-[0_25px_60px_rgba(0,0,0,0.65)] border border-[#f4efe7]/10 w-full"
               initial={{
                 clipPath: "inset(20% 20% 20% 20% round 30px)",
                 scale: 0.92,
@@ -244,7 +246,7 @@ export default function Hero() {
         </div>
 
         {/* Full-width premium stats visual panel (Spans all 12 columns for balanced design) */}
-        <div className="hidden lg:block lg:col-span-12 mt-1 md:mt-4" id="hero-metrics-full-wrapper">
+        <div className="hidden md:block md:col-span-12 mt-1 md:mt-4" id="hero-metrics-full-wrapper">
           <div className="grid grid-cols-3 gap-3 md:gap-8 pt-3 md:pt-5 border-t border-[#f4efe7]/15" id="hero-metrics-container">
             {[
               { label: t.hero.stats.accessTitle, value: t.hero.stats.accessVal },
@@ -271,7 +273,7 @@ export default function Hero() {
       </div>
 
       {/* Kinetic scroll line visual anchor */}
-      <div className="absolute bottom-8 left-6 md:left-11 w-[150px] h-[1px] bg-[#f4efe7]/25 overflow-hidden hidden lg:block" id="scroll-line-container">
+      <div className="absolute bottom-8 left-6 md:left-11 w-[150px] h-[1px] bg-[#f4efe7]/25 overflow-hidden hidden md:block" id="scroll-line-container">
         <motion.div
           className="h-full w-full bg-[#f4efe7]"
           initial={{ x: "-100%" }}

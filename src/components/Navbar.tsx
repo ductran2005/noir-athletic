@@ -1,4 +1,6 @@
-import { useState } from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useTranslation } from "../context/LanguageContext";
@@ -6,25 +8,38 @@ import { useTranslation } from "../context/LanguageContext";
 export default function Navbar() {
   const { language, setLanguage, t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 w-full z-50 px-4 md:px-11 py-4 md:py-8 flex md:grid md:grid-cols-3 justify-between items-center transition-all duration-300 ${
-          isOpen ? "bg-[#050505] border-b border-white/5" : "mix-blend-difference text-[#f4efe7]"
+        className={`fixed top-0 left-0 w-full z-50 px-4 lg:px-11 flex lg:grid lg:grid-cols-3 justify-between items-center transition-all duration-500 ${
+          isOpen
+            ? "bg-[#050505] border-b border-white/5 py-4 lg:py-8 text-[#f4efe7]"
+            : isScrolled
+            ? "bg-[#050505]/95 backdrop-blur-md border-b border-white/10 py-3 lg:py-5 text-[#f4efe7]"
+            : "mix-blend-difference py-4 lg:py-8 text-[#f4efe7]"
         }`}
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         id="navbar"
       >
-        <div className="brand font-extrabold tracking-[2px] text-[13px] md:text-[15px] whitespace-nowrap text-[#f4efe7]">
+        <div className="brand font-extrabold tracking-[2px] text-[13px] lg:text-[15px] whitespace-nowrap text-[#f4efe7]">
           <a href="#" id="nav-brand-link" onClick={() => setIsOpen(false)}>
             {t.brand}
           </a>
         </div>
 
-        <div className="nav-center hidden md:flex items-center justify-center gap-[28px] text-[11px] uppercase tracking-[2px] text-[#f4efe7]">
+        <div className="nav-center hidden lg:flex items-center justify-center gap-[28px] text-[11px] uppercase tracking-[2px] text-[#f4efe7]">
           <a
             href="#manifesto"
             className="hover:opacity-75 transition-opacity"
@@ -55,18 +70,18 @@ export default function Navbar() {
           </a>
         </div>
 
-        <div className="flex justify-end items-center gap-2 md:gap-4" id="nav-cta-container">
+        <div className="flex justify-end items-center gap-2 lg:gap-4" id="nav-cta-container">
           {/* Luxury language switcher - single large circular toggle button */}
           <button
             onClick={() => setLanguage(language === "vi" ? "en" : "vi")}
-            className="relative group w-9 h-9 md:w-12 md:h-12 rounded-full border border-white/20 hover:border-[#b43b2f] bg-[#050505]/40 hover:bg-[#b43b2f]/10 cursor-pointer flex items-center justify-center transition-all duration-300 transform-gpu active:scale-95 shrink-0"
+            className="relative group w-9 h-9 lg:w-12 lg:h-12 rounded-full border border-white/20 hover:border-[#b43b2f] bg-[#050505]/40 hover:bg-[#b43b2f]/10 cursor-pointer flex items-center justify-center transition-all duration-300 transform-gpu active:scale-95 shrink-0"
             id="lang-toggle-btn"
             title={language === "vi" ? "Switch to English" : "Chuyển sang Tiếng Việt"}
           >
             {/* Animated glow overlay */}
             <span className="absolute inset-0 rounded-full border border-transparent group-hover:border-[#b43b2f]/40 group-hover:scale-110 transition-all duration-500 pointer-events-none" />
             
-            <span className="font-mono text-[10px] md:text-sm tracking-widest font-extrabold text-[#f4efe7] select-none transition-transform duration-300 group-hover:scale-105">
+            <span className="font-mono text-[10px] lg:text-sm tracking-widest font-extrabold text-[#f4efe7] select-none transition-transform duration-300 group-hover:scale-105">
               {language === "vi" ? "VI" : "EN"}
             </span>
           </button>
@@ -74,11 +89,11 @@ export default function Navbar() {
           <a
             href="#join"
             onClick={() => setIsOpen(false)}
-            className="nav-cta border border-white/40 hover:border-[#f4efe7] hover:bg-[#f4efe7] hover:text-[#050505] h-9 md:h-12 px-3 md:px-8 rounded-full text-[9px] md:text-[11px] uppercase tracking-[2px] transition-all duration-500 font-medium flex items-center justify-center whitespace-nowrap leading-none shrink-0 text-[#f4efe7]"
+            className="nav-cta border border-white/40 hover:border-[#f4efe7] hover:bg-[#f4efe7] hover:text-[#050505] h-9 lg:h-12 px-3 lg:px-8 rounded-full text-[9px] lg:text-[11px] uppercase tracking-[2px] transition-all duration-500 font-medium flex items-center justify-center whitespace-nowrap leading-none shrink-0 text-[#f4efe7]"
             id="nav-cta-btn"
           >
-            <span className="hidden md:inline">{t.navLinks.cta}</span>
-            <span className="inline md:hidden">
+            <span className="hidden lg:inline">{t.navLinks.cta}</span>
+            <span className="inline lg:hidden">
               {language === "vi" ? "Tham gia" : "Apply"}
             </span>
           </a>
@@ -86,7 +101,7 @@ export default function Navbar() {
           {/* Premium Hamburger List Toggle Menu Button for Mobile */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden flex items-center justify-center w-9 h-9 rounded-full border border-white/25 bg-[#050505]/60 hover:bg-white/10 active:scale-95 transition-all text-[#f4efe7]"
+            className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full border border-white/25 bg-[#050505]/60 hover:bg-white/10 active:scale-95 transition-all text-[#f4efe7]"
             id="mobile-menu-toggle"
             aria-label="Toggle Menu"
           >
@@ -103,7 +118,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 h-screen bg-[#050505] z-40 flex flex-col justify-between p-6 pt-[96px]"
+            className="fixed inset-0 h-screen bg-[#050505] z-40 flex lg:hidden flex-col justify-between p-6 pt-[96px]"
             id="mobile-menu-drawer"
           >
             {/* Ambient Deep Atmospheric Red Glow background element */}

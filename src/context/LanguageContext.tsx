@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 export type Language = "vi" | "en";
@@ -37,6 +39,7 @@ interface TranslationDictionary {
     kicker: string;
     title: string;
     body: string;
+    pillars: Array<{ num: string; label: string; desc: string }>;
   };
   passes: {
     kicker: string;
@@ -113,6 +116,7 @@ interface TranslationDictionary {
     errorName: string;
     errorPhoneEmpty: string;
     errorPhoneInvalid: string;
+    privileges: Array<{ num: string; title: string; desc: string }>;
   };
 }
 
@@ -151,6 +155,23 @@ const viTranslations: TranslationDictionary = {
     kicker: "Tuyên ngôn",
     title: "Không chỉ là phòng tập. Đây là phong cách sống.",
     body: "NOIR Athletic Club kết hợp tập luyện cao cấp, phục hồi thể chất và đặc quyền riêng tư cho doanh nhân & người sáng tạo.",
+    pillars: [
+      {
+        num: "01",
+        label: "HIỆU SUẤT CAO",
+        desc: "Ứng dụng khoa học thể thao hiện đại, tối ưu từng nhịp thở và buổi tập."
+      },
+      {
+        num: "02",
+        label: "KỶ LUẬT THÉP",
+        desc: "Không gian thúc đẩy sự tập trung tuyệt đối, loại bỏ mọi tác nhân gây xao nhãng."
+      },
+      {
+        num: "03",
+        label: "SỰ BIỆT LẬP",
+        desc: "Giới hạn 150 hội viên nhằm đảm bảo tính riêng tư và dịch vụ chuẩn mực nhất."
+      }
+    ]
   },
   passes: {
     kicker: "Thẻ Hội Viên",
@@ -227,6 +248,28 @@ const viTranslations: TranslationDictionary = {
     errorName: "Vui lòng nhập họ và tên",
     errorPhoneEmpty: "Vui lòng nhập số điện thoại",
     errorPhoneInvalid: "Số điện thoại không hợp lệ (9..13 ký số)",
+    privileges: [
+      {
+        num: "01",
+        title: "KHOÁ SINH TRẮC HỌC 24/7",
+        desc: "Đặc quyền ra vào không giới hạn bằng nhận diện thông minh bất kể ngày đêm."
+      },
+      {
+        num: "02",
+        title: "PHỤC HỒI CHUYÊN SÂU",
+        desc: "Sử dụng miễn phí khu sục đá lạnh sâu & phòng xông hơi hồng ngoại riêng tư."
+      },
+      {
+        num: "03",
+        title: "THIẾT BỊ ĐẠT CHUẨN OLYMPIC",
+        desc: "Trải nghiệm dòng tạ Eleiko & máy tập cơ học tối tân Hammer Strength."
+      },
+      {
+        num: "04",
+        title: "ĐÀO TẠO & DINH DƯỠNG 1:1",
+        desc: "Thiết kế giáo án tập luyện và chế độ ăn uống chuyên biệt cùng Huấn luyện viên."
+      }
+    ]
   },
 };
 
@@ -265,6 +308,23 @@ const enTranslations: TranslationDictionary = {
     kicker: "Manifesto",
     title: "Not just a gym. This is a lifestyle ritual.",
     body: "NOIR Athletic Club combines premium training, physical recovery, and private privileges for creators and leaders.",
+    pillars: [
+      {
+        num: "01",
+        label: "HIGH PERFORMANCE",
+        desc: "Applying modern sports science to optimize every breath and conditioning session."
+      },
+      {
+        num: "02",
+        label: "DISCIPLINE",
+        desc: "An environment engineered for absolute focus, eliminating all mental noise."
+      },
+      {
+        num: "03",
+        label: "EXCLUSIVITY",
+        desc: "Strictly capped at 150 members to guarantee maximum privacy and elite service."
+      }
+    ]
   },
   passes: {
     kicker: "Club Pass",
@@ -341,6 +401,28 @@ const enTranslations: TranslationDictionary = {
     errorName: "Kindly submit your full name",
     errorPhoneEmpty: "Kindly submit your contact phone",
     errorPhoneInvalid: "Please provide a valid phone number (9-13 digits)",
+    privileges: [
+      {
+        num: "01",
+        title: "24/7 BIOMETRIC PASS",
+        desc: "Unlimited club access via seamless facial recognition, day or night."
+      },
+      {
+        num: "02",
+        title: "HYPER RECOVERY SUITE",
+        desc: "Complimentary access to private cold plunge baths & infrared saunas."
+      },
+      {
+        num: "03",
+        title: "OLYMPIC-TIER EQUIPMENT",
+        desc: "Train on standard Eleiko free weights and Hammer Strength biomechanics."
+      },
+      {
+        num: "04",
+        title: "1:1 ELITE COACHING",
+        desc: "Tailored physical conditioning & micro-nutrition plans with certified coaches."
+      }
+    ]
   },
 };
 
@@ -358,16 +440,22 @@ interface LanguageContextProps {
 const LanguageContext = createContext<LanguageContextProps | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>(() => {
-    // Attempt local storage sync
-    const saved = localStorage.getItem("noir_lang");
-    if (saved === "vi" || saved === "en") return saved;
-    return "vi"; // Vietnamese default
-  });
+  const [language, setLanguageState] = useState<Language>("vi");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("noir_lang");
+      if (saved === "vi" || saved === "en") {
+        setLanguageState(saved);
+      }
+    }
+  }, []);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem("noir_lang", lang);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("noir_lang", lang);
+    }
   };
 
   const t = translations[language];

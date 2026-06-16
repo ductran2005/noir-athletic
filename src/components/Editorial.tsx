@@ -1,9 +1,11 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { useTranslation } from "../context/LanguageContext";
 
 export default function Editorial() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
   const [activeDotIndex, setActiveDotIndex] = useState(0);
 
@@ -22,33 +24,36 @@ export default function Editorial() {
       imgId: "editorial-img-1",
       src: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=900&q=80",
       alt: "Physical transformation aesthetic athlete",
-      className: "lg:w-[37%] h-[380px] sm:h-[280px] md:h-[360px] lg:h-[620px] lg:left-[3%] lg:top-[40px]",
-      initial: { y: 60, rotate: -6, opacity: 0 },
-      whileInView: { y: 0, rotate: -5, opacity: 1 },
-      whileHover: { scale: 1.03, rotate: -2, zIndex: 10 },
-      style: { originX: 0.5, originY: 0.5 }
+      kicker: language === "vi" ? "Sức mạnh // Strength" : "Strength Deck // Power",
+      title: language === "vi" ? "KỶ LUẬT VẬT LÝ" : "PHYSICAL DISCIPLINE",
+      description: language === "vi" ? "Hệ thống thiết bị tạ tự do chuẩn Olympic giúp tối ưu hóa mật độ cơ bắp." : "Olympic-standard free weights engineered to maximize biomechanical muscle density.",
+      initial: isMobile ? { y: 40, opacity: 0, scale: 0.92 } : { y: 60, rotateY: 20, opacity: 0 },
+      whileInView: isMobile ? undefined : { y: 0, rotateY: 20, opacity: 1 },
+      whileHover: isMobile ? undefined : { scale: 1.05, rotateY: 0, zIndex: 20 },
     },
     {
       id: "editorial-poster-2",
       imgId: "editorial-img-2",
       src: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1100&q=80",
       alt: "Hard athletic iron lifting technique",
-      className: "lg:w-[42%] h-[380px] sm:h-[300px] md:h-[400px] lg:h-[700px] lg:left-[30%] lg:top-0 z-1",
-      initial: { y: 40, scale: 0.95, opacity: 0 },
-      whileInView: { y: 0, scale: 1, opacity: 1 },
-      whileHover: { scale: 1.04, zIndex: 10 },
-      style: undefined
+      kicker: language === "vi" ? "Kích hoạt // Cardio" : "Conditioning // Cardio",
+      title: language === "vi" ? "ĐƯỜNG CHẠY ÁP SUẤT" : "PRESSURE TUNNEL",
+      description: language === "vi" ? "Đường chạy độ dốc cao áp suất thấp giúp cải thiện nhanh hệ thống hô hấp." : "High-incline, low-pressure treadmills designed to rapidly improve respiratory system capacity.",
+      initial: isMobile ? { y: 40, opacity: 0, scale: 0.92 } : { y: 40, rotateY: 0, opacity: 0 },
+      whileInView: isMobile ? undefined : { y: 0, rotateY: 0, opacity: 1 },
+      whileHover: isMobile ? undefined : { scale: 1.06, rotateY: 0, zIndex: 20 },
     },
     {
       id: "editorial-poster-3",
       imgId: "editorial-img-3",
       src: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80",
       alt: "Luxury premium fitness gear detail",
-      className: "lg:w-[30%] h-[380px] sm:h-[255px] md:h-[320px] lg:h-[500px] lg:right-[2%] lg:top-[160px]",
-      initial: { y: 80, rotate: 6, opacity: 0 },
-      whileInView: { y: 0, rotate: 6, opacity: 1 },
-      whileHover: { scale: 1.03, rotate: 2, zIndex: 10 },
-      style: { originX: 0.5, originY: 0.5 }
+      kicker: language === "vi" ? "Hồi phục // Recovery" : "Sanctuary // Recovery",
+      title: language === "vi" ? "XÔNG LẠNH SÂU" : "CRYOTHERAPY SUITE",
+      description: language === "vi" ? "Liệu pháp ngâm đá lạnh sâu giúp giảm viêm khớp và phục hồi cơ thần tốc." : "Sub-zero cold plunge therapy to reduce inflammation and accelerate neuromuscular recovery.",
+      initial: isMobile ? { y: 40, opacity: 0, scale: 0.92 } : { y: 80, rotateY: -20, opacity: 0 },
+      whileInView: isMobile ? undefined : { y: 0, rotateY: -20, opacity: 1 },
+      whileHover: isMobile ? undefined : { scale: 1.05, rotateY: 0, zIndex: 20 },
     }
   ];
 
@@ -78,7 +83,11 @@ export default function Editorial() {
 
       {/* Editorial Stage Box */}
       <div 
-        className={`editorial-stage mt-8 md:mt-16 relative ${isMobile ? "h-[410px] w-full" : "h-auto lg:h-[760px] grid grid-cols-1 sm:grid-cols-3 lg:block gap-4 md:gap-6"}`}
+        className={`editorial-stage mt-8 md:mt-12 w-full [perspective:2500px] ${
+          isMobile 
+            ? "h-[410px] relative" 
+            : "grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 w-full relative z-10"
+        }`}
         id="editorial-poster-stage"
       >
         {postersData.map((poster, index) => {
@@ -96,13 +105,13 @@ export default function Editorial() {
           return (
             <motion.div
               key={poster.id}
-              className={`poster rounded-2xl md:rounded-[28px] overflow-hidden shadow-xl ${
+              className={`poster group ${
                 isMobile 
-                  ? "absolute top-0 left-0 w-full h-[370px] bg-white border border-[#050505]/5 touch-pan-y select-none" 
-                  : `shrink-0 sm:w-auto lg:absolute ${poster.className}`
+                  ? "absolute top-0 left-0 w-full h-[370px] bg-white border border-[#050505]/5 touch-pan-y select-none rounded-2xl md:rounded-[28px] overflow-hidden perspective-1000" 
+                  : "relative w-full h-[460px] md:h-[540px] lg:h-[680px] cursor-pointer"
               }`}
-              style={isMobile ? { transformOrigin: "top center" } : poster.style}
-              initial={isMobile ? { y: 40, opacity: 0, scale: 0.92 } : poster.initial}
+              style={isMobile ? { transformOrigin: "top center" } : { transformStyle: "preserve-3d" }}
+              initial={poster.initial}
               whileInView={isMobile ? undefined : poster.whileInView}
               animate={isMobile ? mobileAnimate : undefined}
               whileHover={isMobile ? undefined : poster.whileHover}
@@ -111,7 +120,7 @@ export default function Editorial() {
                 type: isMobile ? "spring" : "tween",
                 stiffness: isMobile ? 280 : undefined,
                 damping: isMobile ? 26 : undefined,
-                duration: isMobile ? undefined : 1.2,
+                duration: isMobile ? undefined : 0.8,
                 ease: isMobile ? undefined : [0.16, 1, 0.3, 1],
               }}
               drag={isMobile && isTopCard ? "x" : false}
@@ -127,25 +136,46 @@ export default function Editorial() {
               whileDrag={{ scale: 1.02, rotate: 1 }}
               id={poster.id}
             >
-              <img
-                src={poster.src}
-                alt={poster.alt}
-                className="w-full h-full object-cover pointer-events-none"
-                draggable={false}
-                referrerPolicy="no-referrer"
-                id={poster.imgId}
-              />
+              {/* 3D Card Inner Wrapper (only flips on desktop hover) */}
+              <div className={`w-full h-full relative transition-transform duration-700 transform-style-3d rounded-2xl md:rounded-[28px] ${isMobile ? "" : "group-hover:rotate-y-180"}`}>
+                
+                {/* Front Side: Image */}
+                <div className="absolute inset-0 w-full h-full backface-hidden z-10 rounded-2xl md:rounded-[28px] overflow-hidden shadow-2xl">
+                  <img
+                    src={poster.src}
+                    alt={poster.alt}
+                    className="w-full h-full object-cover pointer-events-none"
+                    draggable={false}
+                    referrerPolicy="no-referrer"
+                    id={poster.imgId}
+                  />
+                </div>
+
+                {/* Back Side: Premium Details */}
+                <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 z-0 bg-[#0c0c0c] border border-[#f4efe7]/15 p-6 md:p-8 flex flex-col justify-between text-[#f4efe7] rounded-2xl md:rounded-[28px] shadow-2xl">
+                  <div className="flex flex-col gap-2">
+                    <span className="text-[#b43b2f] text-[10px] tracking-[3px] font-bold font-display uppercase text-left">
+                      {poster.kicker}
+                    </span>
+                    <h3 className="text-xl md:text-2xl font-black tracking-tight uppercase text-left leading-tight">
+                      {poster.title}
+                    </h3>
+                    <p className="text-[#bcb5aa] text-xs md:text-sm font-light leading-relaxed mt-2 text-left">
+                      {poster.description}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 text-left justify-start">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#b43b2f] animate-pulse" />
+                    <span className="text-[9px] uppercase tracking-[2px] text-[#bcb5aa]/60 font-medium">
+                      Noir Athletic Club
+                    </span>
+                  </div>
+                </div>
+
+              </div>
             </motion.div>
           );
         })}
-
-        {/* Cinematic blend text overlay "Build Different" */}
-        <div
-          className="hidden sm:block lg:absolute left-0 right-0 bottom-[10px] lg:bottom-[30px] z-20 text-[clamp(42px,10vw,140px)] lg:text-[clamp(58px,12vw,190px)] leading-[0.75] tracking-[-4px] lg:tracking-[-9px] uppercase font-[950] text-center mix-blend-normal lg:mix-blend-difference mt-6 sm:mt-0 lg:mt-0 text-[#050505] lg:text-white pointer-events-none select-none font-sans"
-          id="editorial-text-banner"
-        >
-          Build<br />Different
-        </div>
       </div>
 
       {/* Mobile-only premium capsule navigation pagination dots */}

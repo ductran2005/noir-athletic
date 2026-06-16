@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useRef, useEffect } from "react";
 import { motion } from "motion/react";
 import { Check } from "lucide-react";
@@ -63,7 +65,7 @@ export default function Passes({ onSelectPass }: PassesProps) {
   };
 
   return (
-    <section id="passes" className="bg-[#050505] px-6 md:px-11 py-20 md:py-28 overflow-hidden text-[#f4efe7]">
+    <section id="passes" className="bg-[#050505] px-6 md:px-11 py-20 md:py-28 overflow-hidden text-[#f4efe7] scroll-mt-20 lg:scroll-mt-28">
       <motion.div
         className="text-[#b43b2f] uppercase tracking-[4px] text-xs font-bold mb-5 font-display"
         initial={{ y: 30, opacity: 0 }}
