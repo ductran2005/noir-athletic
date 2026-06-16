@@ -78,7 +78,7 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
     if (validate()) {
       const randomId = Math.floor(1000 + Math.random() * 9000);
       const categoryCode = formData.passType.replace(" ", "").toUpperCase().substring(0, 5);
-      setMemberCode(`NOIR-${categoryCode}-${randomId}`);
+      setMemberCode(`LIMITS-${categoryCode}-${randomId}`);
       setIsSubmitted(true);
     }
   };
@@ -354,7 +354,7 @@ export default function ApplicationForm({ selectedPass }: ApplicationProps) {
                   <div className="relative z-10 flex flex-col gap-3" id="card-pass-header">
                     <div className="flex items-center justify-center gap-2" id="card-logo-container">
                       <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-[#d44c40]" />
-                      <span className="font-display text-[11px] font-bold uppercase tracking-[3px] text-[#d44c40]">Noir Athletic Club</span>
+                      <span className="font-display text-[11px] font-bold uppercase tracking-[3px] text-[#d44c40]">{t.brand}</span>
                     </div>
                     <h3 className="text-3xl font-black uppercase tracking-tight text-[#f4efe7] md:text-4xl">{t.form.cardTitle}</h3>
                     <div className="mx-auto mt-1 h-px w-16 bg-[#d44c40]" />

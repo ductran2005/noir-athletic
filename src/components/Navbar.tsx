@@ -56,9 +56,6 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
               className="group flex min-w-0 items-center gap-3"
             >
-              <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#f4efe7]/18 bg-[#f4efe7]/8 lg:hidden">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#d44c40] shadow-[0_0_18px_rgba(212,76,64,0.75)]" />
-              </span>
               <span className="flex min-w-0 flex-col">
                 <span className="text-[13px] font-black uppercase leading-none tracking-[2px] text-[#f4efe7] lg:text-[15px]">
                   {t.brand}
