@@ -11,11 +11,6 @@ export default function Hero() {
 
   const slides = [
     {
-      url: "/hero/Screenshot 2026-06-16 184918.png",
-      title: t.hero.slides.sanctuaryTitle,
-      tagline: t.hero.slides.sanctuaryDesc,
-    },
-    {
       url: "/hero/Screenshot 2026-06-16 184930.png",
       title: t.hero.slides.cardioTitle,
       tagline: t.hero.slides.cardioDesc,
@@ -25,7 +20,14 @@ export default function Hero() {
       title: t.hero.slides.strengthDebkTitle,
       tagline: t.hero.slides.strengthDeckDesc,
     },
+    {
+      url: "/hero/Screenshot 2026-06-16 184918.png",
+      title: t.hero.slides.sanctuaryTitle,
+      tagline: t.hero.slides.sanctuaryDesc,
+    },
   ];
+
+
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -36,42 +38,62 @@ export default function Hero() {
 
   return (
     <header
-      className="min-h-screen relative pt-[94px] md:pt-[120px] pb-8 md:pb-10 px-4 md:px-8 lg:px-12 xl:px-16 bg-[#050505] flex items-start md:items-center overflow-hidden"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle at 75% 20%, rgba(180,59,47,0.2) 0%, transparent 50%)",
-      }}
+      className="min-h-screen relative pt-[92px] md:pt-[112px] pb-7 md:pb-10 px-5 md:px-8 lg:px-12 xl:px-16 bg-[#050505] flex overflow-hidden"
       id="hero-section"
     >
-      {/* Background Subtle Accent Lines */}
-      <div className="absolute inset-0 pointer-events-none opacity-20" id="hero-grid-lines">
-        <div className="absolute left-[8%] top-0 bottom-0 w-[1px] bg-[#f4efe7]/5" />
-        <div className="absolute left-[58%] top-0 bottom-0 w-[1px] bg-[#f4efe7]/5 hidden lg:block" />
+      {/* Cinematic full-bleed background slideshow */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" id="hero-bg-container">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeSlide}
+            className="absolute inset-0 w-full h-full"
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.35, ease: "easeInOut" }}
+          >
+            <img
+              src={slides[activeSlide].url}
+              alt={slides[activeSlide].title}
+              className="w-full h-full object-cover object-[58%_center]"
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-black/35 z-10" />
+        <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(0,0,0,0.98)_0%,rgba(0,0,0,0.84)_24%,rgba(0,0,0,0.52)_50%,rgba(0,0,0,0.18)_76%,rgba(0,0,0,0.5)_100%)]" />
+        <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_74%_18%,rgba(190,34,28,0.26)_0%,rgba(190,34,28,0.08)_26%,transparent_54%)]" />
+        <div className="absolute inset-x-0 bottom-0 z-10 h-1/3 bg-gradient-to-t from-black via-black/55 to-transparent" />
       </div>
 
-      {/* Main Structural Asymmetric Grid */}
-      <div
-        className="w-full max-w-[1760px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center z-10"
-        id="hero-columns-container"
-      >
-        {/* Left Column: Mighty Typography & Core Actions (Takes up 6 out of 12 columns for a wider left-right distribution) */}
-        <div className="md:col-span-5 flex flex-col gap-4 md:gap-8 justify-center pr-0 lg:pr-6" id="hero-left-column">
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col gap-2"
-          >
-            <div className="tag text-[#b43b2f] uppercase tracking-[4px] text-xs font-bold font-display">
-              {t.hero.tagline}
-            </div>
-          </motion.div>
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-25" id="hero-track-lines">
+        <div className="absolute left-[7%] top-0 bottom-0 w-px bg-[#f4efe7]/10" />
+        <div className="absolute left-[46%] top-0 bottom-0 w-px bg-[#f4efe7]/5 hidden lg:block" />
+        <div className="absolute right-[10%] top-0 bottom-0 w-px bg-[#f4efe7]/5 hidden xl:block" />
+      </div>
 
-          {/* Colossal Title Stacks */}
-          <div className="pointer-events-none" id="hero-colossal-title">
-            <h1 className="text-[clamp(44px,7.8vw,115px)] font-[950] tracking-[-2px] md:tracking-[-5px] uppercase text-[#f4efe7] leading-[0.95] text-left">
+      <div
+        className="relative z-10 w-full max-w-[1760px] mx-auto flex flex-col justify-between"
+        id="hero-content-container"
+      >
+        <div className="max-w-[680px] pt-8 md:pt-10 lg:pt-14" id="hero-left-column">
+          <motion.div
+            className="flex flex-col gap-5 md:gap-7"
+            initial={{ y: 34, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="tag text-[#e04438] uppercase tracking-[4px] text-[10px] md:text-xs font-extrabold font-display">
+              Private Training Club
+            </div>
+
+            <h1 className="pointer-events-none text-[clamp(58px,11.5vw,158px)] font-[950] uppercase text-[#f4efe7] leading-[0.84] text-left drop-shadow-[0_10px_30px_rgba(0,0,0,0.85)]">
               {words.map((word, index) => (
-                <span key={index} className="inline-block overflow-hidden h-fit mr-[0.25em] last:mr-0" id={`hero-word-${word.toLowerCase()}`}>
+                <span
+                  key={index}
+                  className="block overflow-hidden h-fit"
+                  id={`hero-word-${word.toLowerCase()}`}
+                >
                   <motion.span
                     className="inline-block"
                     initial={{ y: "110%", opacity: 0 }}
@@ -87,44 +109,33 @@ export default function Hero() {
                 </span>
               ))}
             </h1>
-          </div>
 
-          {/* Description & Premium Action Buttons */}
-          <motion.div
-            className="flex flex-col gap-4 md:gap-8 max-w-xl"
-            initial={{ y: 35, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.45 }}
-            id="hero-intro-actions"
-          >
-            <p className="text-[#f4efe7] text-lg md:text-2xl leading-[1.6] font-medium max-w-xl">
+            <p className="text-[#f4efe7] text-base md:text-xl leading-[1.55] font-extrabold uppercase max-w-[420px] drop-shadow-[0_4px_18px_rgba(0,0,0,0.8)]">
               {t.hero.sub}
             </p>
 
-            {/* Key highlight pills */}
-            <ul className="flex flex-col gap-3" id="hero-highlights">
+            <ul className="flex flex-col gap-2.5 pt-1" id="hero-highlights">
               {t.hero.highlights.map((item, index) => (
                 <li
                   key={index}
-                  className="flex items-center gap-3 text-[#bcb5aa] text-base md:text-lg font-light"
+                  className="flex items-center gap-3 text-[#c9c1b7] text-xs md:text-sm font-medium"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#b43b2f] shrink-0 shadow-[0_0_10px_rgba(180,59,47,0.7)]" />
+                  <span className="w-1 h-1 rounded-full bg-[#e04438] shrink-0 shadow-[0_0_12px_rgba(224,68,56,0.85)]" />
                   {item}
                 </li>
               ))}
             </ul>
 
-            {/* Interactive smooth anchor action buttons */}
-            <div className="flex flex-row items-center gap-3 w-full md:w-auto animate-fade-in" id="hero-button-actions">
+            <div className="flex flex-row items-center gap-3 w-full sm:w-auto pt-2" id="hero-button-actions">
               <a
                 href="#passes"
-                className="flex-1 md:flex-initial px-4 md:px-8 py-3.5 md:py-4 bg-[#f4efe7] text-[#050505] rounded-full text-[11px] md:text-xs font-bold uppercase tracking-[1.5px] md:tracking-[2px] transition-all duration-300 hover:bg-[#b43b2f] hover:text-[#f4efe7] active:scale-95 leading-none shadow-lg text-center whitespace-nowrap"
+                className="flex-1 sm:flex-initial px-5 md:px-8 py-3.5 md:py-4 bg-[#b43b2f] text-[#f4efe7] rounded-[3px] text-[10px] md:text-xs font-extrabold uppercase tracking-[1.5px] transition-all duration-300 hover:bg-[#e04438] active:scale-95 leading-none shadow-[0_0_26px_rgba(180,59,47,0.34)] text-center whitespace-nowrap"
               >
                 {t.navLinks.passes}
               </a>
               <a
                 href="#join"
-                className="flex-1 md:flex-initial px-4 md:px-8 py-3.5 md:py-4 border border-[#f4efe7]/20 hover:border-[#f4efe7]/70 hover:bg-[#f4efe7]/5 text-[#f4efe7] rounded-full text-[11px] md:text-xs font-bold uppercase tracking-[1.5px] md:tracking-[2px] transition-all duration-300 active:scale-95 leading-none text-center whitespace-nowrap"
+                className="flex-1 sm:flex-initial px-5 md:px-8 py-3.5 md:py-4 border border-[#f4efe7]/20 bg-black/20 hover:border-[#f4efe7]/60 hover:bg-[#f4efe7]/10 text-[#f4efe7] rounded-[3px] text-[10px] md:text-xs font-extrabold uppercase tracking-[1.5px] transition-all duration-300 active:scale-95 leading-none text-center whitespace-nowrap backdrop-blur-sm"
               >
                 {t.navLinks.join}
               </a>
@@ -132,103 +143,20 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column: Dynamic Editorial Cover Frame & Stats (Takes up 6 out of 12 columns - Made wider and taller) */}
-        <div className="md:col-span-7 flex flex-col gap-8 md:gap-10" id="hero-right-column">
-          {/* Cover Art Frame with Slide controls & elegant space info layout */}
-          <div className="relative group/hero-frame w-full flex-shrink-0" id="hero-interactive-card">
-            <motion.div
-              className="hero-visual h-[50vh] md:h-[68vh] lg:h-[82vh] xl:h-[86vh] rounded-[30px] overflow-hidden relative shadow-[0_25px_60px_rgba(0,0,0,0.65)] border border-[#f4efe7]/10 w-full"
-              initial={{
-                clipPath: "inset(20% 20% 20% 20% round 30px)",
-                scale: 0.92,
-              }}
-              animate={{
-                clipPath: "inset(0% 0% 0% 0% round 30px)",
-                scale: 1,
-              }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              id="hero-visual-wrapper"
-            >
-              {/* Overlay Gradient with premium contrast */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30 z-10 pointer-events-none" />
-
-              {/* Glowing Pulse Top Bar */}
-              <div className="absolute top-5 left-6 right-6 flex items-center justify-between z-20 pointer-events-none">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#b43b2f] animate-ping" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#b43b2f] absolute" />
-                  <span className="text-[#f4efe7]/60 text-[9px] uppercase tracking-[3px] font-medium font-mono">
-                    {t.hero.liveFeed}
-                  </span>
-                </div>
-                <div className="text-[#f4efe7]/40 text-[9px] uppercase tracking-[2px] font-light font-mono">
-                  {t.hero.location}
-                </div>
-              </div>
-
-              {/* Cross-fade Animated Image using standard AnimatePresence */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeSlide}
-                  className="absolute inset-0 w-full h-full"
-                  initial={{ opacity: 0, scale: 1.08 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <img
-                    src={slides[activeSlide].url}
-                    alt={slides[activeSlide].title}
-                    className="w-full h-full object-cover scale-100 transition-transform duration-[5s] ease-out group-hover/hero-frame:scale-[1.05]"
-                    referrerPolicy="no-referrer"
-                  />
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Bottom Info Bar inside image */}
-              <div className="absolute bottom-6 left-6 right-16 z-20 flex flex-col gap-1 pointer-events-none">
-                <div className="overflow-hidden flex items-center">
-                  <motion.div
-                    key={activeSlide}
-                    initial={{ y: "100%" }}
-                    animate={{ y: 0 }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-[#f4efe7] text-xl md:text-3xl font-extrabold uppercase tracking-[1px] font-display"
-                  >
-                    {slides[activeSlide].title}
-                  </motion.div>
-                </div>
-                <div className="overflow-hidden">
-                  <motion.p
-                    key={activeSlide}
-                    initial={{ y: "100%", opacity: 0 }}
-                    animate={{ y: 0, opacity: 0.75 }}
-                    transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-[#bcb5aa] text-sm md:text-base font-light"
-                  >
-                    {slides[activeSlide].tagline}
-                  </motion.p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Float control panel overlays in vertical layout on the right border */}
-            <div className="absolute right-5 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2.5 bg-[#050505]/95 border border-[#f4efe7]/10 p-2.5 rounded-full backdrop-blur-md shadow-2xl" id="slide-controls">
-              {slides.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveSlide(idx)}
-                  className={`w-11 h-11 rounded-full flex items-center justify-center text-sm font-mono tracking-tighter transition-all duration-300 ${
-                    activeSlide === idx
-                      ? "bg-[#b43b2f] text-[#f4efe7] font-bold scale-110 shadow-lg shadow-[#b43b2f]/30"
-                      : "text-[#9e978f] hover:text-[#f4efe7] hover:bg-[#f4efe7]/5"
-                  }`}
-                  aria-label={`Go to slide ${idx + 1}`}
-                >
-                  0{idx + 1}
-                </button>
-              ))}
-            </div>
+        <div className="flex items-center justify-center md:justify-end gap-3 pt-14" id="hero-bottom-row">
+          <div className="flex items-center gap-3" id="slide-controls">
+            {slides.map((slide, idx) => (
+              <button
+                key={slide.url}
+                onClick={() => setActiveSlide(idx)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  activeSlide === idx
+                    ? "w-10 bg-[#e04438] shadow-[0_0_16px_rgba(224,68,56,0.72)]"
+                    : "w-2.5 bg-[#f4efe7]/35 hover:bg-[#f4efe7]/70"
+                }`}
+                aria-label={`Go to ${slide.title}`}
+              />
+            ))}
           </div>
         </div>
       </div>
